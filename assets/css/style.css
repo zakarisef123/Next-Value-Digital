@@ -145,6 +145,8 @@ ul{ margin: 0; padding: 0; list-style: none; }
   border: 1.5px solid var(--line-soft);
 }
 .btn-ghost:hover{ border-color: var(--violet); color: var(--violet-dark); transform: translateY(-2px); }
+.hero .btn-ghost{ color: var(--text-light); border-color: rgba(255,255,255,0.3); }
+.hero .btn-ghost:hover{ border-color: #fff; color: #fff; }
 .btn-light{
   background: #fff;
   color: var(--ink);
