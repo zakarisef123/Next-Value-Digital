@@ -174,7 +174,7 @@ ul{ margin: 0; padding: 0; list-style: none; }
 }
 
 .brand{ display: flex; align-items: center; gap: 12px; }
-.brand-mark{ width: 40px; height: 38px; flex-shrink: 0; object-fit: contain; }
+.brand-mark{ width: 52px; height: 44px; flex-shrink: 0; object-fit: contain; }
 .brand-word{ display: flex; flex-direction: column; line-height: 1; }
 .brand-word b{
   font-family: var(--font-display);
@@ -494,6 +494,14 @@ section{ padding: 110px 0; position: relative; }
 .result-pill b{ font-family: var(--font-display); color: var(--gold-light); }
 
 /* ---------- Pricing ---------- */
+.price-grid{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
+.price-grid .price-card{ width: 270px; flex-grow: 1; max-width: 320px; }
+
 .price-card{
   background: #fff;
   border: 1px solid var(--line-soft);
@@ -503,6 +511,16 @@ section{ padding: 110px 0; position: relative; }
   flex-direction: column;
   position: relative;
 }
+.price-card.prestige{
+  background: var(--gradient-twin);
+  color: #fff;
+  border: none;
+}
+.price-card.prestige p{ color: rgba(255,255,255,0.85); }
+.price-card.prestige .amount{ color: #fff; }
+.price-card.prestige .amount span{ color: rgba(255,255,255,0.75); }
+.price-card.prestige ul li svg{ stroke: #fff; }
+.price-card.prestige .ribbon{ background: #fff; color: var(--violet-dark); }
 .price-card.featured{
   background: var(--ink);
   color: var(--text-light);
