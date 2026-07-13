@@ -740,3 +740,13 @@ section{ padding: 110px 0; position: relative; }
   .floating-contact{ right: 14px; bottom: 14px; padding: 14px; }
   .floating-contact span{ display: none; }
 }
+
+/* ---------- Article ---------- */
+.article-body{ max-width: 740px; margin: 0 auto; }
+.article-body p{ font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.3em; color: var(--text-dark); }
+.article-body h2{ margin-top: 1.8em; margin-bottom: 0.6em; font-size: 1.5rem; }
+.article-body h3{ margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.15rem; }
+.article-body ul, .article-body ol{ margin: 0 0 1.3em; padding-left: 1.3em; }
+.article-body li{ margin-bottom: 0.55em; font-size: 1.05rem; line-height: 1.7; color: var(--text-dark); }
+.article-body blockquote{ border-left: 3px solid var(--violet); padding-left: 20px; margin: 1.8em 0; font-style: italic; color: var(--muted-dark); }
+.article-body strong{ color: var(--text-dark); }
