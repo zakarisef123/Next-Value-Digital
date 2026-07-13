@@ -714,3 +714,29 @@ section{ padding: 110px 0; position: relative; }
   .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
   .price-card.featured{ transform: none; }
 }
+
+/* ---------- Floating contact button ---------- */
+.floating-contact{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 998;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 22px;
+  border-radius: 999px;
+  background: var(--gradient-twin);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.floating-contact svg{ width: 19px; height: 19px; flex-shrink: 0; }
+.floating-contact:hover{ transform: translateY(-3px); box-shadow: 0 24px 50px -14px rgba(108,76,245,0.5); }
+@media (max-width: 640px){
+  .floating-contact{ right: 14px; bottom: 14px; padding: 14px; }
+  .floating-contact span{ display: none; }
+}
