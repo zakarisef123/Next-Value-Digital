@@ -15,6 +15,8 @@
 </head>
 <body>
 
+<div class="scroll-progress" aria-hidden="true"></div>
+
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand">
@@ -53,12 +55,12 @@
         <a href="services.html" class="btn btn-ghost">Voir nos services</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b>+120</b><span>campagnes lancées</span></div>
-        <div class="stat"><b>2x</b><span>croissance moyenne visée</span></div>
+        <div class="stat"><b data-count="120" data-prefix="+">+0</b><span>campagnes lancées</span></div>
+        <div class="stat"><b data-count="2" data-suffix="x">0x</b><span>croissance moyenne visée</span></div>
         <div class="stat"><b>FR / EN</b><span>équipe bilingue</span></div>
       </div>
     </div>
-    <div class="twin-orb" aria-hidden="true">
+    <div class="twin-orb" data-reveal="scale" aria-hidden="true">
       <svg viewBox="0 0 400 400" fill="none">
         <defs>
           <linearGradient id="gradA" x1="0" y1="0" x2="1" y2="1">
@@ -82,6 +84,10 @@
       </svg>
     </div>
   </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="mouse"></span>
+    Défilez
+  </div>
 </section>
 
 <section aria-label="Ils nous font confiance">
@@ -104,6 +110,39 @@
         <div class="card client-logo" aria-hidden="true"><img src="assets/img/interpro24.png" alt=""></div>
         <div class="card client-logo" aria-hidden="true"><img src="assets/img/fil-good.png" alt=""></div>
         <div class="card client-logo" aria-hidden="true" style="padding:8px;"><img src="assets/img/artisans-de-france.png" alt="" style="max-height:92px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-dark" aria-label="Pourquoi Next Value Digital">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Pourquoi nous</span>
+      <h2>Une exigence de résultat, pas de promesses</h2>
+      <p>Nous ne vendons pas des livrables, mais de la croissance mesurable. Chaque euro investi est suivi, expliqué et optimisé.</p>
+    </div>
+    <div class="feature-row">
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div>
+          <h4>Pilotage par la donnée</h4>
+          <p>Tracking fiable et reporting transparent : vous savez précisément ce que chaque action rapporte.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div>
+          <h4>Expertise ex-Google</h4>
+          <p>Des standards issus des plus grands acteurs de la tech, appliqués à votre croissance.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div>
+          <h4>Un interlocuteur dédié</h4>
+          <p>Pas de sous-traitance opaque : une équipe restreinte, bilingue, réellement impliquée.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -178,12 +217,12 @@
       <h2>Les données ne créent pas de valeur seules</h2>
       <p>C'est la stratégie qui transforme les données en croissance. Nous combinons data, stratégie et performance marketing pour créer des systèmes d'acquisition capables de générer une croissance durable.</p>
     </div>
-    <div class="duo" data-reveal>
-      <div class="side-a">
+    <div class="duo">
+      <div class="side-a" data-reveal="left">
         <h4>Data</h4>
         <p>Tracking fiable, analyse et mesure en continu. La matière première qui révèle les opportunités invisibles et objective chaque décision.</p>
       </div>
-      <div class="side-b">
+      <div class="side-b" data-reveal="right">
         <h4>Stratégie</h4>
         <p>Priorisation des leviers, positionnement, pilotage à la performance. L'intelligence qui transforme la donnée en croissance durable.</p>
       </div>
@@ -270,10 +309,10 @@
 
 <section>
   <div class="container">
-    <div class="cta-band" data-reveal>
+    <div class="cta-band" data-reveal="scale">
       <div>
         <h2>Prêt à transformer votre potentiel en résultats mesurables ?</h2>
-        <p>Parlons de vos objectifs de croissance lors d'un premier échange offert, sans engagement.</p>
+        <p>Parlons de vos objectifs de croissance lors d'un premier échange offert, sans engagement. Réponse sous 24h ouvrées.</p>
       </div>
       <a href="contact.html" class="btn btn-light">Réserver un échange</a>
     </div>
