@@ -15,6 +15,8 @@
 </head>
 <body>
 
+<div class="scroll-progress" aria-hidden="true"></div>
+
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand">
@@ -53,12 +55,12 @@
         <a href="services.html" class="btn btn-ghost">See our services</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b>120+</b><span>campaigns launched</span></div>
-        <div class="stat"><b>2x</b><span>average growth target</span></div>
+        <div class="stat"><b data-count="120" data-suffix="+">0+</b><span>campaigns launched</span></div>
+        <div class="stat"><b data-count="2" data-suffix="x">0x</b><span>average growth target</span></div>
         <div class="stat"><b>FR / EN</b><span>bilingual team</span></div>
       </div>
     </div>
-    <div class="twin-orb" aria-hidden="true">
+    <div class="twin-orb" data-reveal="scale" aria-hidden="true">
       <svg viewBox="0 0 400 400" fill="none">
         <defs>
           <linearGradient id="gradA" x1="0" y1="0" x2="1" y2="1">
@@ -82,6 +84,10 @@
       </svg>
     </div>
   </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="mouse"></span>
+    Scroll
+  </div>
 </section>
 
 <section aria-label="Trusted by">
@@ -104,6 +110,39 @@
         <div class="card client-logo" aria-hidden="true"><img src="../assets/img/interpro24.png" alt=""></div>
         <div class="card client-logo" aria-hidden="true"><img src="../assets/img/fil-good.png" alt=""></div>
         <div class="card client-logo" aria-hidden="true" style="padding:8px;"><img src="../assets/img/artisans-de-france.png" alt="" style="max-height:92px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-dark" aria-label="Why Next Value Digital">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Why us</span>
+      <h2>A commitment to results, not promises</h2>
+      <p>We don't sell deliverables, we sell measurable growth. Every euro invested is tracked, explained and optimized.</p>
+    </div>
+    <div class="feature-row">
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div>
+          <h4>Data-driven decisions</h4>
+          <p>Reliable tracking and transparent reporting: you know exactly what every action returns.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div>
+          <h4>Ex-Google expertise</h4>
+          <p>Standards drawn from the biggest players in tech, applied to your growth.</p>
+        </div>
+      </div>
+      <div class="feature-item" data-reveal="blur">
+        <div class="fi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div>
+          <h4>A dedicated contact</h4>
+          <p>No opaque outsourcing: a small, bilingual team that's genuinely involved.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -178,12 +217,12 @@
       <h2>Data alone doesn't create value</h2>
       <p>Strategy is what turns data into growth. We combine data, strategy and performance marketing to build acquisition systems that drive sustainable growth.</p>
     </div>
-    <div class="duo" data-reveal>
-      <div class="side-a">
+    <div class="duo">
+      <div class="side-a" data-reveal="left">
         <h4>Data</h4>
         <p>Reliable tracking, continuous analysis and measurement. The raw material that reveals invisible opportunities and grounds every decision.</p>
       </div>
-      <div class="side-b">
+      <div class="side-b" data-reveal="right">
         <h4>Strategy</h4>
         <p>Lever prioritization, positioning, performance-driven management. The intelligence that turns data into sustainable growth.</p>
       </div>
@@ -270,10 +309,10 @@
 
 <section>
   <div class="container">
-    <div class="cta-band" data-reveal>
+    <div class="cta-band" data-reveal="scale">
       <div>
         <h2>Ready to turn your potential into measurable results?</h2>
-        <p>Let's talk about your growth goals in a free, no-commitment first conversation.</p>
+        <p>Let's talk about your growth goals in a free, no-commitment first conversation. Reply within 24 business hours.</p>
       </div>
       <a href="contact.html" class="btn btn-light">Book a call</a>
     </div>

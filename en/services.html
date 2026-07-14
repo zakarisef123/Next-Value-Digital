@@ -15,6 +15,8 @@
 </head>
 <body>
 
+<div class="scroll-progress" aria-hidden="true"></div>
+
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand">
@@ -48,6 +50,10 @@
     <span class="eyebrow">What we do</span>
     <h1>Services designed to work together, never in isolation</h1>
     <p class="lead">Every lever feeds the others: data sharpens advertising, SEO fuels content, and every euro invested is steered toward a measurable result.</p>
+    <div class="hero-cta" style="margin-top:26px;">
+      <a href="contact.html" class="btn btn-primary">Build my tailored offer</a>
+      <a href="#process" class="btn btn-ghost">See our method</a>
+    </div>
   </div>
 </section>
 
@@ -167,10 +173,59 @@
   </div>
 </section>
 
+<section id="process" class="section-dim">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">How we work</span>
+      <h2>A four-step engagement, built for performance</h2>
+      <p>No off-the-shelf recipe: a rigorous method, adapted to your context, where each step sets up the next.</p>
+    </div>
+    <div class="process">
+      <div class="process-step" data-reveal><div class="process-num">1</div><h3>Diagnose</h3><p>An audit of your acquisition, data and market to reveal the most profitable opportunities.</p></div>
+      <div class="process-step" data-reveal><div class="process-num">2</div><h3>Strategize</h3><p>Prioritizing the highest-impact levers and a clear, results-oriented roadmap.</p></div>
+      <div class="process-step" data-reveal><div class="process-num">3</div><h3>Execute</h3><p>Producing content, activating campaigns and putting the acquisition system in place.</p></div>
+      <div class="process-step" data-reveal><div class="process-num">4</div><h3>Optimize</h3><p>Continuous measurement, testing and monthly adjustments to accelerate growth over time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Our method</span>
+      <h2>What sets our approach apart</h2>
+      <p>Six working principles that guarantee objective decisions and results you can track, euro by euro.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-item" data-reveal="blur"><span class="m-num">01</span><div><h4>Everything is measured</h4><p>Reliable tracking from day one: no decision is made blind, every action is tied to a result.</p></div></div>
+      <div class="method-item" data-reveal="blur"><span class="m-num">02</span><div><h4>Strategy before tools</h4><p>We define the "why" before the "how". Channels follow the strategy, never the other way around.</p></div></div>
+      <div class="method-item" data-reveal="blur"><span class="m-num">03</span><div><h4>Systems, not one-offs</h4><p>We build durable acquisition engines rather than isolated actions with no follow-through.</p></div></div>
+      <div class="method-item" data-reveal="blur"><span class="m-num">04</span><div><h4>Full transparency</h4><p>Clear, commented reporting every month: you know what was done, why, and what it returned.</p></div></div>
+      <div class="method-item" data-reveal="blur"><span class="m-num">05</span><div><h4>Continuous iteration</h4><p>Test, learn, adjust. Performance is built over time, not in a single campaign.</p></div></div>
+      <div class="method-item" data-reveal="blur"><span class="m-num">06</span><div><h4>A team that's involved</h4><p>A dedicated contact who knows your account, not a chain of anonymous subcontractors.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">The results we aim for</span>
+      <h2>Concrete goals, not vague promises</h2>
+    </div>
+    <div class="stat-band">
+      <div class="sb" data-reveal><b data-count="2" data-suffix="x">0x</b><span>organic traffic target over 12 months</span></div>
+      <div class="sb" data-reveal><b data-count="30" data-prefix="-" data-suffix="%">0%</b><span>cost per lead optimized</span></div>
+      <div class="sb" data-reveal><b data-count="24" data-suffix="h">0h</b><span>average response time</span></div>
+      <div class="sb" data-reveal><b data-count="100" data-suffix="%">0%</b><span>of actions tracked and measured</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="section-dark">
   <div class="container">
     <div class="grid grid-2" style="align-items:center;gap:50px;">
-      <div data-reveal>
+      <div data-reveal="left">
         <span class="eyebrow">Training</span>
         <h2>Google Ads training, from a former Google employee</h2>
         <p>Our founder spent two and a half years at Google helping advertisers with their advertising strategies. He now shares that expertise with your teams, in a tailored format: one-on-one coaching, group workshops, or Google Ads certification prep, depending on your needs.</p>
@@ -182,7 +237,7 @@
         </ul>
         <p style="font-size:0.85rem;">Open to agency clients as well as any company looking to train its teams in-house.</p>
       </div>
-      <div class="price-card featured" data-reveal style="max-width:380px;">
+      <div class="price-card featured" data-reveal="right" style="max-width:380px;">
         <h3>Google Ads Training</h3>
         <p>Tailored format, matched to your level and goals.</p>
         <div class="amount">€990<span> / package</span></div>
@@ -197,14 +252,41 @@
   </div>
 </section>
 
+<section>
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Frequently asked</span>
+      <h2>What clients often ask us</h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do you work with a fixed contract term?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a"><p>We favour month-to-month engagements with no long lock-in. Digital growth takes consistency, but you stay free: performance should keep you, not a contract.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do I have to take every service at once?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a"><p>No. We always start from the highest-impact levers for your situation. Some clients begin with SEO, others with advertising or branding. The offer is built to measure.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How soon do results show?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a"><p>Advertising can deliver results within weeks; SEO usually needs 3 to 6 months to build durable growth. We set clear milestones from the start to track progress.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do you work with clients in Switzerland?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a"><p>Yes. Based in Divonne-les-Bains, on the doorstep of Geneva, we work with French and Swiss clients alike, in both French and English.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section-dark">
   <div class="container">
-    <div class="cta-band" style="background:transparent;border:1px solid rgba(255,255,255,0.12);" data-reveal>
+    <div class="cta-band" data-reveal="scale">
       <div>
         <h2>Have a question about a specific service?</h2>
-        <p>We always build a tailored offer, matched to your goals and your budget.</p>
+        <p>We always build a tailored offer, matched to your goals and your budget. Reply within 24 business hours.</p>
       </div>
-      <a href="contact.html" class="btn btn-primary">Let's talk about your project</a>
+      <a href="contact.html" class="btn btn-light">Let's talk about your project</a>
     </div>
   </div>
 </section>
