@@ -121,6 +121,14 @@ ul{ margin: 0; padding: 0; list-style: none; }
   background: var(--gradient-twin);
   border-radius: 2px;
 }
+/* on dark backgrounds the default violet-dark eyebrow disappears: lift it */
+.hero .eyebrow, .page-hero .eyebrow, .section-dark .eyebrow{ color: var(--violet-light); }
+.hero .eyebrow{
+  font-size: 1.05rem;
+  letter-spacing: 0.22em;
+  color: var(--text-light);
+  text-shadow: 0 0 24px rgba(108,76,245,0.55);
+}
 
 /* ---------- Buttons ---------- */
 .btn{
@@ -150,8 +158,8 @@ ul{ margin: 0; padding: 0; list-style: none; }
   border: 1.5px solid var(--line-soft);
 }
 .btn-ghost:hover{ border-color: var(--violet); color: var(--violet-dark); transform: translateY(-2px); }
-.hero .btn-ghost{ color: var(--text-light); border-color: rgba(255,255,255,0.3); }
-.hero .btn-ghost:hover{ border-color: #fff; color: #fff; }
+.hero .btn-ghost, .page-hero .btn-ghost, .section-dark .btn-ghost{ color: var(--text-light); border-color: rgba(255,255,255,0.35); }
+.hero .btn-ghost:hover, .page-hero .btn-ghost:hover, .section-dark .btn-ghost:hover{ border-color: #fff; color: #fff; }
 .btn-light{
   background: #fff;
   color: var(--ink);
@@ -179,7 +187,8 @@ ul{ margin: 0; padding: 0; list-style: none; }
 }
 
 .brand{ display: flex; align-items: center; gap: 12px; }
-.brand-mark{ height: 34px; width: auto; flex-shrink: 0; object-fit: contain; }
+.brand-mark{ height: 52px; width: auto; flex-shrink: 0; object-fit: contain; }
+@media (max-width: 640px){ .brand-mark{ height: 42px; } }
 .brand-word{ display: flex; flex-direction: column; line-height: 1; }
 .brand-word b{
   font-family: var(--font-display);
@@ -1232,6 +1241,186 @@ section{ padding: 110px 0; position: relative; }
 .check-list li{ display: flex; gap: 12px; align-items: flex-start; font-size: 0.96rem; }
 .check-list li svg{ width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; stroke: var(--violet); }
 .section-dark .check-list li svg{ stroke: var(--gold-light); }
+
+/* ==========================================================================
+   GROWTH VISUAL - futuristic digital-growth animation (hero)
+   ========================================================================== */
+.growth-visual{
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1;
+  margin-left: auto;
+}
+.growth-visual svg{ width: 100%; height: 100%; overflow: visible; }
+
+.gv-grid line{ stroke: rgba(255,255,255,0.07); stroke-width: 1; }
+.gv-ring{
+  fill: none;
+  stroke: rgba(169,150,255,0.25);
+  stroke-dasharray: 4 10;
+  transform-origin: 200px 200px;
+  animation: gv-rotate 40s linear infinite;
+}
+.gv-ring.r2{ stroke: rgba(240,173,140,0.22); animation-duration: 60s; animation-direction: reverse; }
+@keyframes gv-rotate{ to{ transform: rotate(360deg); } }
+
+.gv-curve{
+  fill: none;
+  stroke: url(#gvLine);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  filter: drop-shadow(0 0 8px rgba(108,76,245,0.65));
+  animation: gv-draw 3.2s var(--ease-out) forwards, gv-glow 3.5s ease-in-out 3.2s infinite alternate;
+}
+@keyframes gv-draw{ to{ stroke-dashoffset: 0; } }
+@keyframes gv-glow{
+  from{ filter: drop-shadow(0 0 6px rgba(108,76,245,0.5)); }
+  to{ filter: drop-shadow(0 0 16px rgba(226,130,92,0.8)); }
+}
+.gv-area{ fill: url(#gvArea); opacity: 0; animation: gv-fade 1.2s ease 2.2s forwards; }
+@keyframes gv-fade{ to{ opacity: 1; } }
+
+.gv-bar{
+  fill: url(#gvBar);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  animation: gv-bar-rise 1.1s var(--ease-out) forwards;
+  opacity: 0.75;
+}
+@keyframes gv-bar-rise{ to{ transform: scaleY(1); } }
+
+.gv-node{ transform-box: fill-box; transform-origin: 50% 50%; animation: gv-pop 0.5s var(--ease-out) backwards; }
+.gv-node circle:first-child{
+  fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: gv-pulse 2.6s ease-out infinite;
+}
+@keyframes gv-pop{ from{ transform: scale(0); } to{ transform: scale(1); } }
+@keyframes gv-pulse{
+  0%{ transform: scale(0.6); opacity: 1; }
+  80%, 100%{ transform: scale(2.4); opacity: 0; }
+}
+.gv-particle{
+  fill: #fff;
+  opacity: 0;
+  animation: gv-float 6s linear infinite;
+}
+@keyframes gv-float{
+  0%{ transform: translateY(0); opacity: 0; }
+  15%{ opacity: 0.9; }
+  85%{ opacity: 0.15; }
+  100%{ transform: translateY(-130px); opacity: 0; }
+}
+.gv-rocket-ring{
+  fill: none;
+  stroke: url(#gvLine);
+  stroke-width: 1.5;
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: gv-pulse 3s ease-out 3.4s infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .gv-curve{ stroke-dashoffset: 0; animation: none; }
+  .gv-area{ opacity: 1; animation: none; }
+  .gv-bar{ transform: none; animation: none; }
+  .gv-node, .gv-node circle:first-child, .gv-particle, .gv-ring, .gv-rocket-ring{ animation: none; }
+  .gv-particle{ opacity: 0.4; }
+}
+
+/* ---------- Arrow text CTA ---------- */
+.link-cta{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--violet-dark);
+  transition: gap 0.3s var(--ease-out), color 0.2s ease;
+}
+.link-cta::after{ content: "→"; transition: transform 0.3s var(--ease-out); }
+.link-cta:hover{ gap: 12px; color: var(--magenta); }
+.section-dark .link-cta, .hero .link-cta, .page-hero .link-cta{ color: var(--gold-light); }
+.section-dark .link-cta:hover{ color: #fff; }
+
+/* ---------- Sector cards ---------- */
+.sector-card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+.sector-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+.sector-card .sector-emoji{ font-size: 1.7rem; line-height: 1; margin-bottom: 14px; }
+.sector-card h3{ font-size: 1.08rem; margin-bottom: 4px; }
+.sector-card .sector-promise{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: transparent;
+  background: var(--gradient-twin);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+.sector-card p{ font-size: 0.88rem; margin-bottom: 6px; flex-grow: 1; }
+.sector-card .link-cta{ font-size: 0.85rem; margin-top: 8px; }
+
+/* ---------- Platform logos strip ---------- */
+.platform-row{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 18px;
+}
+.platform-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.platform-badge:hover{ transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.platform-badge svg{ width: 20px; height: 20px; flex-shrink: 0; }
+.section-dark .platform-badge{ background: var(--ink-soft-solid); border-color: rgba(255,255,255,0.1); color: var(--text-light); }
+
+/* ---------- Real client cards (portfolio) ---------- */
+.work-card .logo-chip{
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  max-width: 190px;
+}
+.work-card .logo-chip img{ max-height: 46px; object-fit: contain; }
+
+/* ---------- Hero keyword chips ---------- */
+.hero .chip-row{ margin-top: 26px; }
+.hero .chip{ background: rgba(255,255,255,0.06); color: var(--muted-light); border-color: rgba(255,255,255,0.14); }
 
 /* ---------- Big quote / testimonial spotlight ---------- */
 .spotlight{
