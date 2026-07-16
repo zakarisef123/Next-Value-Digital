@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/services.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/services.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/a-propos.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/a-propos.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/about.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/portfolio.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/portfolio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/portfolio.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/tarifs.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/tarifs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/pricing.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/blog.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/blog.html"/>
+  </url>
+  <url>
+    <loc>https://zakarisef123.github.io/Next-Value-Digital/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zakarisef123.github.io/Next-Value-Digital/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zakarisef123.github.io/Next-Value-Digital/en/contact.html"/>
+  </url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/signauxseo2026.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/metaadsvsgoogleads.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/identitedemarquememorable.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/sequencesemailventes.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/calendriereditorialpetiteequipe.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/blog/marketingfren.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/index.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/services.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/portfolio.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/pricing.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/blog.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://zakarisef123.github.io/Next-Value-Digital/en/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
