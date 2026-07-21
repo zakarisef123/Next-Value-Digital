@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -87,7 +88,11 @@
     <div class="grid grid-2" style="align-items:start;gap:36px;">
       <div class="form-card" data-reveal>
         <div id="form-success" class="form-success">Merci pour votre message ! Notre équipe vous répondra sous 24h ouvrées.</div>
-        <form id="contact-form" data-fake-submit="#form-success">
+        <p data-form-error class="form-note" style="color:#C25A3D;">Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous écrire directement à <a href="mailto:nextvalue.digital@gmail.com">nextvalue.digital@gmail.com</a>.</p>
+        <form id="contact-form" data-fake-submit="#form-success" action="https://formsubmit.co/ajax/nextvalue.digital@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nouvelle demande - Next Value Digital">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
           <div class="field-row">
             <div class="field">
               <label for="name">Nom complet</label>
