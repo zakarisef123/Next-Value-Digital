@@ -158,17 +158,41 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = new Date().getFullYear();
   });
 
-  // Static-site friendly fake submit with visible confirmation
+  // Static-site friendly submit: sends via FormSubmit when an action is set,
+  // then shows the same inline confirmation without leaving the page.
   document.querySelectorAll("form[data-fake-submit]").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const successId = form.getAttribute("data-fake-submit");
       const success = successId ? document.querySelector(successId) : null;
-      if (success) {
-        success.classList.add("show");
-        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      const errorEl = form.querySelector("[data-form-error]");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const showSuccess = () => {
+        if (success) {
+          success.classList.add("show");
+          success.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        form.reset();
+        if (submitBtn) submitBtn.disabled = false;
+      };
+      const showError = () => {
+        if (errorEl) errorEl.classList.add("show");
+        if (submitBtn) submitBtn.disabled = false;
+      };
+      const endpoint = form.getAttribute("action");
+      if (endpoint) {
+        if (submitBtn) submitBtn.disabled = true;
+        if (errorEl) errorEl.classList.remove("show");
+        fetch(endpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        })
+          .then((res) => (res.ok ? showSuccess() : showError()))
+          .catch(showError);
+      } else {
+        showSuccess();
       }
-      form.reset();
     });
   });
 });
