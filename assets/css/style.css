@@ -677,6 +677,8 @@ section{ padding: 110px 0; position: relative; }
   margin-bottom: 20px;
 }
 .form-success.show{ display: block; }
+[data-form-error]{ display: none; }
+[data-form-error].show{ display: block; }
 
 .contact-info-card{
   background: var(--ink);
