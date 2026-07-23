@@ -228,3 +228,126 @@
   .platform-detail, .platform-detail.reverse{ flex-direction: column; }
   .platform-detail > .platform-detail-visual{ margin: 0 auto; }
 }
+
+/* ==========================================================================
+   SITE-WIDE MOTION LAYER v2 — richer, applied on every page
+   Everything below is additive: no existing rule is overridden, only new
+   selectors/pseudo-elements/keyframes. All of it is generated/attached by
+   assets/js/animations.js, nothing here requires manual markup changes.
+   ========================================================================== */
+
+/* ---------- Ambient floating hero blobs ---------- */
+@keyframes blob-float-a{
+  0%, 100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(24px,26px) scale(1.08); }
+}
+@keyframes blob-float-b{
+  0%, 100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(-20px,-18px) scale(1.06); }
+}
+.hero::before{ animation: blob-float-a 13s ease-in-out infinite; }
+.hero::after{ animation: blob-float-b 15s ease-in-out infinite; }
+.page-hero::before{ animation: blob-float-a 14s ease-in-out infinite; }
+
+/* ---------- Cursor spotlight (injected into .hero / .page-hero) ---------- */
+.cursor-spotlight{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(420px circle at var(--sx,50%) var(--sy,50%), rgba(185,83,154,0.16), transparent 65%);
+  z-index: 0;
+}
+.cursor-spotlight.is-on{ opacity: 1; }
+
+/* ---------- Word-by-word heading reveal ---------- */
+.word-split{ display: inline-block; overflow: hidden; vertical-align: top; }
+.word-split .word{
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 0.7s var(--ease-out), opacity 0.6s ease;
+}
+/* hero h1: animates on load */
+.page-hero h1.word-ready .word,
+.hero h1.word-ready .word{ transform: translateY(0); opacity: 1; }
+/* section headings: cascade once the ancestor [data-reveal] gets .is-visible */
+[data-reveal].is-visible h2 .word-split .word,
+[data-reveal].is-visible h1 .word-split .word{ transform: translateY(0); opacity: 1; }
+
+/* ---------- 3D tilt + magnetic buttons (transform applied inline via JS) ---------- */
+.tilt-target{ transition: transform 0.5s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s ease; }
+.magnetic-btn{ transition: transform 0.35s var(--ease-out), box-shadow 0.3s ease; }
+
+/* ---------- Scroll-to-top button (injected by JS) ---------- */
+.scroll-top-btn{
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ink-soft-solid, #171428);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 60;
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s var(--ease-out), background 0.3s ease;
+  box-shadow: 0 14px 30px -12px rgba(11,10,20,0.45);
+}
+.scroll-top-btn.is-visible{ opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.scroll-top-btn:hover{ background: var(--violet); }
+.scroll-top-btn svg{ width: 18px; height: 18px; }
+@media (max-width: 640px){ .scroll-top-btn{ left: 14px; bottom: 14px; width: 40px; height: 40px; } }
+
+/* ---------- Logo marquee: per-logo hover polish ---------- */
+.client-logo img{ transition: transform 0.4s var(--ease-out), filter 0.4s ease; filter: grayscale(0.15); }
+.client-logo:hover img{ transform: scale(1.08); filter: grayscale(0); }
+
+/* ---------- Price card ribbon pulse ---------- */
+@keyframes ribbon-pulse{
+  0%, 100%{ box-shadow: 0 0 0 0 rgba(108,76,245,0.35); }
+  50%{ box-shadow: 0 0 0 6px rgba(108,76,245,0); }
+}
+.price-card .ribbon{ animation: ribbon-pulse 2.4s ease-in-out infinite; }
+.price-card{ transition: transform 0.5s var(--ease-out), box-shadow 0.4s var(--ease-out); }
+
+/* ---------- Case-visual gentle hover lift (portfolio) ---------- */
+.case-visual{ transition: transform 0.5s var(--ease-out); }
+.case:hover .case-visual{ transform: scale(1.02); }
+
+/* ---------- Timeline draw-in (contact "what happens next") ---------- */
+.steps-vertical .sv-line{
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.8s var(--ease-out);
+}
+.steps-vertical.is-active .step-v:nth-child(1) .sv-line{ transition-delay: .1s; }
+.steps-vertical.is-active .step-v:nth-child(2) .sv-line{ transition-delay: .5s; }
+.steps-vertical.is-active .step-v:nth-child(3) .sv-line{ transition-delay: .9s; }
+.steps-vertical.is-active .sv-line{ transform: scaleY(1); }
+.steps-vertical .sv-num{ transform: scale(0.6); opacity: 0; transition: transform 0.5s var(--ease-out), opacity 0.4s ease; }
+.steps-vertical.is-active .step-v:nth-child(1) .sv-num{ transition-delay: 0s; }
+.steps-vertical.is-active .step-v:nth-child(2) .sv-num{ transition-delay: .4s; }
+.steps-vertical.is-active .step-v:nth-child(3) .sv-num{ transition-delay: .8s; }
+.steps-vertical.is-active .step-v:nth-child(4) .sv-num{ transition-delay: 1.2s; }
+.steps-vertical.is-active .sv-num{ transform: scale(1); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce){
+  .hero::before, .hero::after, .page-hero::before{ animation: none !important; }
+  .cursor-spotlight{ display: none !important; }
+  .word-split .word{ transform: none !important; opacity: 1 !important; }
+  .scroll-top-btn{ transition: none !important; }
+  .price-card .ribbon{ animation: none !important; }
+  .steps-vertical .sv-line, .steps-vertical .sv-num{ transform: none !important; opacity: 1 !important; }
+}
+@media (pointer: coarse){
+  .cursor-spotlight{ display: none !important; }
+}
