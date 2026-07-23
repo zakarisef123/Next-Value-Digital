@@ -165,4 +165,19 @@ document.addEventListener("DOMContentLoaded", () => {
       timelines.forEach((t) => tio.observe(t));
     }
   }
+
+  // ---------- Twinkling starfield in dark sections ----------
+  if (!reduceMotion) {
+    document.querySelectorAll(".hero, .page-hero, .section-dark").forEach((section) => {
+      const stars = document.createElement("div");
+      stars.className = "starfield-layer";
+      stars.setAttribute("aria-hidden", "true");
+      section.insertBefore(stars, section.firstChild);
+    });
+  }
+
+  // ---------- Rotating glow ring on device panels & featured pricing ----------
+  document
+    .querySelectorAll(".laptop-screen, .device-mock, .inbox-mock, .price-card.featured, .price-card.prestige")
+    .forEach((el) => el.classList.add("glow-ring"));
 });
