@@ -37,6 +37,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/animations.css">
 </head>
 <body>
 
@@ -90,54 +91,35 @@
         <div class="stat"><b>FR / EN</b><span>bilingual team</span></div>
       </div>
     </div>
-    <div class="growth-visual" data-reveal="scale" aria-hidden="true">
-      <svg viewBox="0 0 400 400" fill="none">
-        <defs>
-          <linearGradient id="gvLine" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stop-color="#6C4CF5"/>
-            <stop offset="0.5" stop-color="#B9539A"/>
-            <stop offset="1" stop-color="#F0AD8C"/>
-          </linearGradient>
-          <linearGradient id="gvArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#6C4CF5" stop-opacity="0.35"/>
-            <stop offset="1" stop-color="#6C4CF5" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="gvBar" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0" stop-color="#4A2FCB"/>
-            <stop offset="1" stop-color="#9B7EFF"/>
-          </linearGradient>
-        </defs>
-        <g class="gv-grid">
-          <line x1="40" y1="90" x2="360" y2="90"/>
-          <line x1="40" y1="148" x2="360" y2="148"/>
-          <line x1="40" y1="206" x2="360" y2="206"/>
-          <line x1="40" y1="264" x2="360" y2="264"/>
-          <line x1="40" y1="322" x2="360" y2="322"/>
-          <line x1="104" y1="70" x2="104" y2="322"/>
-          <line x1="168" y1="70" x2="168" y2="322"/>
-          <line x1="232" y1="70" x2="232" y2="322"/>
-          <line x1="296" y1="70" x2="296" y2="322"/>
-        </g>
-        <circle class="gv-ring" cx="200" cy="200" r="188"/>
-        <circle class="gv-ring r2" cx="200" cy="200" r="152"/>
-        <rect class="gv-bar" x="72" y="272" width="24" height="50" rx="5" style="animation-delay:.25s"/>
-        <rect class="gv-bar" x="132" y="242" width="24" height="80" rx="5" style="animation-delay:.5s"/>
-        <rect class="gv-bar" x="192" y="207" width="24" height="115" rx="5" style="animation-delay:.75s"/>
-        <rect class="gv-bar" x="252" y="164" width="24" height="158" rx="5" style="animation-delay:1s"/>
-        <rect class="gv-bar" x="312" y="112" width="24" height="210" rx="5" style="animation-delay:1.25s"/>
-        <path class="gv-area" d="M40 306 C90 300 122 270 162 248 C202 226 218 200 252 172 C280 148 298 124 324 92 L324 322 L40 322 Z"/>
-        <path class="gv-curve" d="M40 306 C90 300 122 270 162 248 C202 226 218 200 252 172 C280 148 298 124 324 92"/>
-        <g class="gv-node" style="animation-delay:.6s"><circle cx="40" cy="306" r="9"/><circle cx="40" cy="306" r="4.5" fill="#fff"/></g>
-        <g class="gv-node" style="animation-delay:1.4s"><circle cx="162" cy="248" r="9"/><circle cx="162" cy="248" r="4.5" fill="#fff"/></g>
-        <g class="gv-node" style="animation-delay:2.2s"><circle cx="252" cy="172" r="9"/><circle cx="252" cy="172" r="4.5" fill="#fff"/></g>
-        <g class="gv-node" style="animation-delay:3s"><circle cx="324" cy="92" r="9"/><circle cx="324" cy="92" r="5.5" fill="#F0AD8C"/></g>
-        <circle class="gv-rocket-ring" cx="324" cy="92" r="18"/>
-        <circle class="gv-particle" cx="84" cy="330" r="2.5" style="animation-delay:0s"/>
-        <circle class="gv-particle" cx="150" cy="342" r="2" style="animation-delay:1.4s"/>
-        <circle class="gv-particle" cx="216" cy="336" r="2.5" style="animation-delay:2.8s"/>
-        <circle class="gv-particle" cx="282" cy="344" r="2" style="animation-delay:4.2s"/>
-        <circle class="gv-particle" cx="340" cy="332" r="2.5" style="animation-delay:5.2s"/>
-      </svg>
+    <div class="laptop-mockup" data-animate="laptop" aria-hidden="true">
+      <div class="laptop-screen">
+        <div class="dashboard-bar"><span></span><span></span><span></span><b>Dashboard</b></div>
+        <div class="dashboard-kpis">
+          <div class="kpi"><b data-count="847" data-prefix="+">0</b><span>Leads</span></div>
+          <div class="kpi"><b data-count="2.4" data-suffix="x">0</b><span>ROAS</span></div>
+          <div class="kpi"><b data-count="38" data-prefix="+" data-suffix="%">0</b><span>CTR</span></div>
+        </div>
+        <svg class="dashboard-chart" viewBox="0 0 320 110" fill="none">
+          <defs>
+            <linearGradient id="dashBarGrad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#4A2FCB"/>
+              <stop offset="1" stop-color="#9B7EFF"/>
+            </linearGradient>
+            <linearGradient id="dashLineGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#6C4CF5"/>
+              <stop offset="0.5" stop-color="#B9539A"/>
+              <stop offset="1" stop-color="#F0AD8C"/>
+            </linearGradient>
+          </defs>
+          <rect class="dash-bar" x="10" y="60" width="26" height="50" rx="4"/>
+          <rect class="dash-bar" x="68" y="45" width="26" height="65" rx="4"/>
+          <rect class="dash-bar" x="126" y="30" width="26" height="80" rx="4"/>
+          <rect class="dash-bar" x="184" y="18" width="26" height="92" rx="4"/>
+          <rect class="dash-bar" x="242" y="5" width="26" height="105" rx="4"/>
+          <path class="dash-line" d="M12 95 C60 85 100 70 138 55 C176 40 214 32 300 12"/>
+        </svg>
+      </div>
+      <div class="laptop-base"></div>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true">
@@ -495,5 +477,6 @@
 
 <a href="contact.html" class="floating-contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span>Get a free audit</span></a>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/animations.js"></script>
 </body>
 </html>
