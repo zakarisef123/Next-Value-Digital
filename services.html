@@ -65,6 +65,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/animations.css">
 </head>
 <body>
 
@@ -226,6 +227,110 @@
     </div>
     <div style="text-align:center;margin-top:44px;" data-reveal>
       <p style="font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--text-dark);margin-bottom:16px;">Vous hésitez sur le levier prioritaire pour votre entreprise ?</p>
+      <a href="contact.html" class="btn btn-primary">Obtenir un audit gratuit</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-dim">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Nos leviers publicitaires en détail</span>
+      <h2>Trois plateformes, trois logiques d'acquisition</h2>
+      <p>Chaque plateforme publicitaire répond à un objectif différent. Nous les pilotons selon leur véritable force, jamais de façon uniforme.</p>
+    </div>
+
+    <div class="platform-detail" data-reveal>
+      <div class="platform-detail-text">
+        <span class="eyebrow">Google Ads (SEA)</span>
+        <h3>Captez une demande qui existe déjà</h3>
+        <p>Vos clients tapent déjà une recherche liée à votre activité. Nous construisons des campagnes qui les captent au bon moment, avec un tracking fiable pour mesurer chaque conversion.</p>
+        <ul class="check-list" style="margin-top:18px;">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Recherche, Shopping &amp; Performance Max</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Suivi des conversions &amp; enchères optimisées</li>
+        </ul>
+      </div>
+      <div class="platform-detail-visual">
+        <div class="sea-visual" data-animate="sea" aria-hidden="true">
+          <svg viewBox="0 0 320 220" fill="none">
+            <defs>
+              <linearGradient id="seaCurveGrad" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#C25A3D"/>
+                <stop offset="1" stop-color="#E2825C"/>
+              </linearGradient>
+            </defs>
+            <rect class="sea-searchbar" x="20" y="18" width="220" height="36" rx="18"/>
+            <circle class="sea-loupe-ring" cx="220" cy="36" r="8"/>
+            <line x1="226" y1="42" x2="234" y2="50" stroke="var(--gold-dark)" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="sea-curve" d="M20 190 C 80 178, 120 150, 160 118 S 240 55, 300 35"/>
+            <circle class="sea-dot" cx="20" cy="190" r="6"/>
+            <circle class="sea-dot" cx="160" cy="118" r="6"/>
+            <circle class="sea-dot" cx="300" cy="35" r="6"/>
+          </svg>
+          <div class="sea-stat"><b data-count="4.2" data-suffix="x">0x</b><span>CTR moyen après optimisation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-detail reverse" data-reveal>
+      <div class="platform-detail-text">
+        <span class="eyebrow">Meta Ads (Facebook / Instagram)</span>
+        <h3>Créez la demande, là où votre audience défile</h3>
+        <p>Vos clients ne cherchent pas encore votre produit : nous le mettons sous leurs yeux au bon format, au bon moment, pour transformer une audience en communauté engagée.</p>
+        <ul class="check-list" style="margin-top:18px;">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Créations natives (feed, stories, reels)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Reciblage &amp; audiences similaires</li>
+        </ul>
+      </div>
+      <div class="platform-detail-visual">
+        <div class="meta-visual" data-animate="meta" aria-hidden="true">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-feed">
+              <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
+              <div class="feed-post highlight"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span><div class="post-media"></div></div></div>
+              <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
+              <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
+              <div class="feed-post highlight"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span><div class="post-media"></div></div></div>
+              <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
+            </div>
+          </div>
+          <div class="meta-stat"><b data-count="620" data-prefix="+">0</b><span>Engagements générés / campagne</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-detail" data-reveal>
+      <div class="platform-detail-text">
+        <span class="eyebrow">LinkedIn Ads</span>
+        <h3>Adressez les bons décideurs B2B</h3>
+        <p>Ciblage par poste, secteur ou taille d'entreprise : LinkedIn Ads reste le canal le plus précis pour toucher des décideurs et générer des leads B2B qualifiés.</p>
+        <ul class="check-list" style="margin-top:18px;">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Ciblage précis par fonction &amp; secteur</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Formulaires Lead Gen natifs</li>
+        </ul>
+      </div>
+      <div class="platform-detail-visual">
+        <div class="linkedin-visual" data-animate="linkedin" aria-hidden="true">
+          <svg viewBox="0 0 320 240" fill="none">
+            <g>
+              <line class="li-line" x1="160" y1="120" x2="60" y2="50"/>
+              <line class="li-line" x1="160" y1="120" x2="260" y2="50"/>
+              <line class="li-line" x1="160" y1="120" x2="60" y2="190"/>
+              <line class="li-line" x1="160" y1="120" x2="260" y2="190"/>
+            </g>
+            <circle class="li-node center" cx="160" cy="120" r="22"/>
+            <circle class="li-node" cx="60" cy="50" r="14"/>
+            <circle class="li-node" cx="260" cy="50" r="14"/>
+            <circle class="li-node" cx="60" cy="190" r="14"/>
+            <circle class="li-node" cx="260" cy="190" r="14"/>
+          </svg>
+          <div class="linkedin-stat"><b data-count="180" data-prefix="+">0</b><span>Leads B2B qualifiés / trimestre</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;" data-reveal>
       <a href="contact.html" class="btn btn-primary">Obtenir un audit gratuit</a>
     </div>
   </div>
@@ -423,5 +528,6 @@
 
 <a href="contact.html" class="floating-contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span>Nous contacter</span></a>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/animations.js"></script>
 </body>
 </html>
