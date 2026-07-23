@@ -69,11 +69,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (!reduceMotion) {
-    const heroHeadings = document.querySelectorAll(".hero h1, .page-hero h1");
-    heroHeadings.forEach(wrapWords);
-    setTimeout(() => heroHeadings.forEach((h) => h.classList.add("word-ready")), 150);
-
     document.querySelectorAll(".section-head h1, .section-head h2").forEach(wrapWords);
+  }
+
+  // ---------- Dramatic curtain-wipe reveal for hero titles ----------
+  if (!reduceMotion) {
+    document.querySelectorAll(".hero h1, .page-hero h1").forEach((h) => {
+      const curtain = document.createElement("span");
+      curtain.className = "title-curtain";
+      curtain.setAttribute("aria-hidden", "true");
+      h.appendChild(curtain);
+      requestAnimationFrame(() => {
+        setTimeout(() => h.classList.add("curtain-active"), 120);
+      });
+    });
   }
 
   // ---------- Magnetic buttons ----------
@@ -173,6 +182,17 @@ document.addEventListener("DOMContentLoaded", () => {
       stars.className = "starfield-layer";
       stars.setAttribute("aria-hidden", "true");
       section.insertBefore(stars, section.firstChild);
+    });
+  }
+
+  // ---------- Cinematic sweeping spotlight beams (hero sections only) ----------
+  if (!reduceMotion) {
+    document.querySelectorAll(".hero, .page-hero").forEach((section) => {
+      const beams = document.createElement("div");
+      beams.className = "spotlight-beams";
+      beams.setAttribute("aria-hidden", "true");
+      beams.innerHTML = '<span class="beam"></span><span class="beam"></span><span class="beam"></span>';
+      section.insertBefore(beams, section.firstChild);
     });
   }
 
