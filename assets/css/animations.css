@@ -685,20 +685,14 @@
    crossing a dark scene). Injected by animations.js, no markup changes.
    ========================================================================== */
 
-/* ---------- Curtain-wipe reveal for hero titles ---------- */
-.hero h1, .page-hero h1{ position: relative; overflow: hidden; }
-.title-curtain{
-  position: absolute;
-  inset: -6% -2%;
-  background: linear-gradient(100deg, var(--violet) 0%, var(--magenta) 50%, var(--gold) 100%);
-  transform-origin: right center;
-  transform: scaleX(1);
-  z-index: 3;
-  pointer-events: none;
+/* ---------- Cinematic focus-pull reveal for hero titles ---------- */
+.hero h1, .page-hero h1{
+  transition: transform 1s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease, opacity 0.7s ease;
 }
-h1.curtain-active .title-curtain{
-  transition: transform 0.95s cubic-bezier(0.76, 0, 0.24, 1);
-  transform: scaleX(0);
+.hero h1.reveal-start, .page-hero h1.reveal-start{
+  transform: scale(1.06);
+  filter: blur(16px);
+  opacity: 0;
 }
 
 /* ---------- Sweeping cinematic spotlight beams (hero sections) ---------- */
@@ -734,7 +728,7 @@ h1.curtain-active .title-curtain{
 }
 
 @media (prefers-reduced-motion: reduce){
-  .title-curtain{ display: none !important; }
+  .hero h1.reveal-start, .page-hero h1.reveal-start{ transform: none !important; filter: none !important; opacity: 1 !important; }
   .spotlight-beams .beam{ animation: none !important; opacity: 0.25 !important; }
 }
 
@@ -746,4 +740,86 @@ h1.curtain-active .title-curtain{
   pointer-events: none;
   width: 100%;
   height: 100%;
+}
+
+/* ==========================================================================
+   CONTENT-AWARE MOTION v6 — beyond the hero: every section gets an
+   animation tied to its own content, reusing the existing [data-reveal]
+   → .is-visible toggle already running site-wide (no new JS observers,
+   so this stays exactly as robust as the reveal system already in use).
+   ========================================================================== */
+
+/* ---------- Numbered process steps: connecting line draws in ---------- */
+.process-step::after{
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out) 0.35s;
+}
+.process-step.is-visible::after{ transform: scaleX(1); }
+.process-num{
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.5s var(--ease-out), opacity 0.4s ease;
+}
+.process-step.is-visible .process-num{ transform: scale(1); opacity: 1; }
+
+/* ---------- Method/differentiator numbers slide in ahead of their text ---------- */
+.method-item .m-num{
+  display: inline-block;
+  transform: translateX(-14px);
+  opacity: 0;
+  transition: transform 0.6s var(--ease-out), opacity 0.5s ease;
+}
+.method-item.is-visible .m-num{ transform: translateX(0); opacity: 1; }
+
+/* ---------- Blog thumbnails wipe open like a curtain ---------- */
+.blog-card .thumb::before, .featured-visual::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-twin);
+  transform-origin: left;
+  transform: scaleX(1);
+  z-index: 2;
+  transition: transform 0.75s var(--ease-out) 0.15s;
+}
+.blog-card.is-visible .thumb::before,
+a[data-reveal].is-visible .featured-visual::before{ transform: scaleX(0); }
+
+/* ---------- Founder / quote cards: mark punctuation pops in ---------- */
+.spotlight .mark{
+  display: inline-block;
+  transform: scale(0.4) rotate(-8deg);
+  opacity: 0;
+  transition: transform 0.6s var(--ease-out) 0.1s, opacity 0.5s ease 0.1s;
+}
+[data-reveal].is-visible .mark{ transform: scale(1) rotate(0deg); opacity: 1; }
+
+/* ---------- Chip rows cascade in (only inside containers confirmed to
+   toggle .is-visible — .founder-card and .case both carry [data-reveal]
+   themselves; hero/page-hero chip-rows are never reveal-gated, so they
+   are deliberately left untouched here to avoid hiding them forever) ---------- */
+.founder-card .chip-row .chip, .case .chip-row .chip{
+  display: inline-flex;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 0.45s var(--ease-out), opacity 0.4s ease;
+}
+.founder-card.is-visible .chip-row .chip, .case.is-visible .chip-row .chip{ transform: translateY(0); opacity: 1; }
+.chip-row .chip:nth-child(1){ transition-delay: 0s; }
+.chip-row .chip:nth-child(2){ transition-delay: .08s; }
+.chip-row .chip:nth-child(3){ transition-delay: .16s; }
+.chip-row .chip:nth-child(4){ transition-delay: .24s; }
+.chip-row .chip:nth-child(5){ transition-delay: .32s; }
+
+/* ---------- SVG icon stroke draw-in (services, values, features) ---------- */
+.icon-wrap svg [data-draw]{ transition: stroke-dashoffset 0.9s var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce){
+  .process-step::after, .process-num, .method-item .m-num,
+  .blog-card .thumb::before, .featured-visual::before,
+  .spotlight .mark, .chip-row .chip{
+    transform: none !important; opacity: 1 !important;
+  }
+  .icon-wrap svg [data-draw]{ stroke-dashoffset: 0 !important; transition: none !important; }
 }
