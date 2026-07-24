@@ -72,15 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".section-head h1, .section-head h2").forEach(wrapWords);
   }
 
-  // ---------- Dramatic curtain-wipe reveal for hero titles ----------
+  // ---------- Cinematic focus-pull reveal for hero titles ----------
+  // Base CSS keeps the title fully visible by default (safe if JS never
+  // runs); we add "reveal-start" synchronously then remove it on the next
+  // frame so the CSS transition on the title itself animates it back in.
   if (!reduceMotion) {
-    document.querySelectorAll(".hero h1, .page-hero h1").forEach((h) => {
-      const curtain = document.createElement("span");
-      curtain.className = "title-curtain";
-      curtain.setAttribute("aria-hidden", "true");
-      h.appendChild(curtain);
+    const heroHeadings = document.querySelectorAll(".hero h1, .page-hero h1");
+    heroHeadings.forEach((h) => h.classList.add("reveal-start"));
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        setTimeout(() => h.classList.add("curtain-active"), 120);
+        heroHeadings.forEach((h) => h.classList.remove("reveal-start"));
       });
     });
   }
@@ -281,5 +282,42 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
+  }
+
+  // ---------- SVG icon stroke draw-in (services, values, features) ----------
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const iconSvgs = document.querySelectorAll(".icon-wrap svg");
+    iconSvgs.forEach((svg) => {
+      const shapes = svg.querySelectorAll("path, circle, polyline, line, rect, polygon, ellipse");
+      shapes.forEach((shape) => {
+        if (typeof shape.getTotalLength !== "function") return;
+        let len;
+        try {
+          len = shape.getTotalLength();
+        } catch (e) {
+          return;
+        }
+        if (!len) return;
+        shape.setAttribute("data-draw", "");
+        shape.style.strokeDasharray = len;
+        shape.style.strokeDashoffset = len;
+      });
+    });
+    const iconIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const shapes = entry.target.querySelectorAll("[data-draw]");
+            shapes.forEach((shape, i) => {
+              shape.style.transitionDelay = Math.min(i * 0.12, 0.4) + "s";
+              shape.style.strokeDashoffset = "0";
+            });
+            iconIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    iconSvgs.forEach((svg) => iconIo.observe(svg));
   }
 });
