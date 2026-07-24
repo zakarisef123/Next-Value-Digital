@@ -737,3 +737,13 @@ h1.curtain-active .title-curtain{
   .title-curtain{ display: none !important; }
   .spotlight-beams .beam{ animation: none !important; opacity: 0.25 !important; }
 }
+
+/* ---------- Canvas particle network (cinematic data-flow background) ---------- */
+.particle-canvas{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
