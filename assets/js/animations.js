@@ -9,10 +9,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const finePointer = window.matchMedia("(pointer: fine)").matches;
 
   // ---------- Illustrative visuals: laptop / SEA / Meta / LinkedIn ----------
+  // Starts the looping parts of a visual once it is on screen: SMIL motion
+  // (pulses, tracers, staggered one per element) and the typed search query.
+  const startVisual = (el) => {
+    if (el.dataset.started) return;
+    el.dataset.started = "1";
+    const groups = el.querySelectorAll(".sys-pulse, .li-pulse, .sea-tracer, .dash-tracer");
+    const base = { system: 1800, linkedin: 1600, sea: 4300, laptop: 2200 }[el.dataset.animate] || 1500;
+    groups.forEach((g, i) => {
+      setTimeout(() => {
+        g.querySelectorAll("animateMotion, animate").forEach((a) => a.beginElement && a.beginElement());
+      }, base + i * 420);
+    });
+    el.querySelectorAll("[data-type]").forEach((t) => {
+      const text = t.getAttribute("data-type");
+      let n = 0;
+      setTimeout(function type() {
+        t.textContent = text.slice(0, ++n);
+        if (n < text.length) setTimeout(type, 55 + Math.random() * 45);
+      }, 500);
+    });
+  };
   const animEls = document.querySelectorAll("[data-animate]");
   if (animEls.length) {
     if (reduceMotion || !("IntersectionObserver" in window)) {
-      animEls.forEach((el) => el.classList.add("is-active"));
+      animEls.forEach((el) => {
+        el.classList.add("is-active");
+        el.querySelectorAll("[data-type]").forEach((t) => { t.textContent = t.getAttribute("data-type"); });
+      });
     } else {
       const io = new IntersectionObserver(
         (entries) => {
@@ -22,13 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
               io.unobserve(entry.target);
               // About "acquisition system": once the levers are wired in,
               // start the SMIL pulses travelling to the core, one per lever
-              if (entry.target.dataset.animate === "system") {
-                entry.target.querySelectorAll(".sys-pulse").forEach((pulse, i) => {
-                  setTimeout(() => {
-                    pulse.querySelectorAll("animateMotion, animate").forEach((a) => a.beginElement && a.beginElement());
-                  }, 1800 + i * 400);
-                });
-              }
+              startVisual(entry.target);
             }
           });
         },
@@ -39,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         animEls.forEach((el) => {
           if (!el.classList.contains("is-active") && el.getBoundingClientRect().top < window.innerHeight * 0.85) {
             el.classList.add("is-active");
+            startVisual(el);
           }
         });
       }, { passive: true });

@@ -64,8 +64,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=9f6e4c7b">
-<link rel="stylesheet" href="assets/css/animations.css?v=9f6e4c7b">
+<link rel="stylesheet" href="assets/css/style.css?v=bbeb5cc0">
+<link rel="stylesheet" href="assets/css/animations.css?v=bbeb5cc0">
 </head>
 <body>
 
@@ -252,23 +252,26 @@
         </ul>
       </div>
       <div class="platform-detail-visual">
-        <div class="sea-visual" data-animate="sea" aria-hidden="true">
-          <svg viewBox="0 0 320 220" fill="none">
+        <div class="adv-panel sea-panel" data-animate="sea" aria-hidden="true">
+          <div class="adv-top"><span class="adv-chip" style="--pc:#4285F4">Google Ads</span><span class="adv-live"><i></i>En direct</span></div>
+          <div class="sea-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="sea-typed" data-type="plombier divonne-les-bains"></span><span class="sea-caret"></span></div>
+          <div class="sea-results">
+            <div class="sea-ad"><span class="sea-sponsor">Sponsorisé</span><b>Plombier agréé · Intervention en 30 min</b><small>votre-entreprise.fr</small><em class="sea-rank">1<sup>re</sup> position</em></div>
+            <div class="sea-org"><i></i><i></i></div>
+            <div class="sea-org"><i></i><i></i></div>
+          </div>
+          <svg class="sea-chart" width="320" height="96" viewBox="0 0 320 96" fill="none">
             <defs>
-              <linearGradient id="seaCurveGrad" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0" stop-color="#C25A3D"/>
-                <stop offset="1" stop-color="#E2825C"/>
-              </linearGradient>
+              <linearGradient id="seaLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6C4CF5"/><stop offset=".55" stop-color="#B9539A"/><stop offset="1" stop-color="#E9CFA6"/></linearGradient>
+              <linearGradient id="seaArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9539A" stop-opacity=".35"/><stop offset="1" stop-color="#B9539A" stop-opacity="0"/></linearGradient>
             </defs>
-            <rect class="sea-searchbar" x="20" y="18" width="220" height="36" rx="18"/>
-            <circle class="sea-loupe-ring" cx="220" cy="36" r="8"/>
-            <line x1="226" y1="42" x2="234" y2="50" stroke="var(--gold-dark)" stroke-width="2.5" stroke-linecap="round"/>
-            <path class="sea-curve" d="M20 190 C 80 178, 120 150, 160 118 S 240 55, 300 35"/>
-            <circle class="sea-dot" cx="20" cy="190" r="6"/>
-            <circle class="sea-dot" cx="160" cy="118" r="6"/>
-            <circle class="sea-dot" cx="300" cy="35" r="6"/>
+            <g class="sea-grid"><line x1="0" y1="24" x2="320" y2="24"/><line x1="0" y1="52" x2="320" y2="52"/><line x1="0" y1="80" x2="320" y2="80"/></g>
+            <path class="sea-area" d="M4 84 C 70 80, 110 64, 160 50 S 250 18, 316 10 L316 96 L4 96 Z"/>
+            <path class="sea-curve" pathLength="1" d="M4 84 C 70 80, 110 64, 160 50 S 250 18, 316 10"/>
+            <circle class="sea-dot" cx="4" cy="84" r="4"/><circle class="sea-dot" cx="160" cy="50" r="4"/><circle class="sea-dot" cx="316" cy="10" r="5"/>
+            <circle class="sea-tracer" r="4"><animateMotion begin="indefinite" dur="3.2s" repeatCount="indefinite" path="M4 84 C 70 80, 110 64, 160 50 S 250 18, 316 10"/></circle>
           </svg>
-          <div class="sea-stat"><b data-count="4.2" data-suffix="x">0x</b><span>CTR moyen après optimisation</span></div>
+          <div class="adv-kpi"><b data-count="4.2" data-suffix="x">0x</b><span>CTR moyen après optimisation</span></div>
         </div>
       </div>
     </div>
@@ -284,10 +287,14 @@
         </ul>
       </div>
       <div class="platform-detail-visual">
-        <div class="meta-visual" data-animate="meta" aria-hidden="true">
-          <div class="phone-frame">
-            <div class="phone-notch"></div>
-            <div class="phone-feed">
+        <div class="adv-panel meta-panel" data-animate="meta" aria-hidden="true">
+          <div class="adv-top"><span class="adv-chip" style="--pc:#0081FB">Meta Ads</span><span class="adv-live"><i></i>En direct</span></div>
+          <div class="meta-stage">
+            <span class="meta-tag tag-a">Reciblage</span>
+            <span class="meta-tag tag-b">Audiences similaires</span>
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-feed">
               <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
               <div class="feed-post highlight"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span><div class="post-media"></div></div></div>
               <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
@@ -295,8 +302,10 @@
               <div class="feed-post highlight"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span><div class="post-media"></div></div></div>
               <div class="feed-post"><div class="post-avatar"></div><div class="post-lines"><span></span><span></span></div></div>
             </div>
+            </div>
+            <div class="meta-reactions"><span class="meta-react" style="--i:0"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></span><span class="meta-react" style="--i:1"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></span><span class="meta-react" style="--i:2"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></span><span class="meta-react" style="--i:3"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></span><span class="meta-react" style="--i:4"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></span></div>
           </div>
-          <div class="meta-stat"><b data-count="620" data-prefix="+">0</b><span>Engagements générés / campagne</span></div>
+          <div class="adv-kpi"><b data-count="620" data-prefix="+">0</b><span>Engagements générés / campagne</span></div>
         </div>
       </div>
     </div>
@@ -312,21 +321,15 @@
         </ul>
       </div>
       <div class="platform-detail-visual">
-        <div class="linkedin-visual" data-animate="linkedin" aria-hidden="true">
-          <svg viewBox="0 0 320 240" fill="none">
-            <g>
-              <line class="li-line" x1="160" y1="120" x2="60" y2="50"/>
-              <line class="li-line" x1="160" y1="120" x2="260" y2="50"/>
-              <line class="li-line" x1="160" y1="120" x2="60" y2="190"/>
-              <line class="li-line" x1="160" y1="120" x2="260" y2="190"/>
-            </g>
-            <circle class="li-node center" cx="160" cy="120" r="22"/>
-            <circle class="li-node" cx="60" cy="50" r="14"/>
-            <circle class="li-node" cx="260" cy="50" r="14"/>
-            <circle class="li-node" cx="60" cy="190" r="14"/>
-            <circle class="li-node" cx="260" cy="190" r="14"/>
-          </svg>
-          <div class="linkedin-stat"><b data-count="180" data-prefix="+">0</b><span>Leads B2B qualifiés / trimestre</span></div>
+        <div class="adv-panel li-panel" data-animate="linkedin" aria-hidden="true">
+          <div class="adv-top"><span class="adv-chip" style="--pc:#0A66C2">LinkedIn Ads</span><span class="adv-live"><i></i>En direct</span></div>
+          <div class="li-stage">
+            <svg width="360" height="224" viewBox="0 0 360 224" preserveAspectRatio="none" fill="none"><line class="li-line" style="--i:0" x1="180" y1="112" x2="180" y2="22" pathLength="1"/><line class="li-line" style="--i:1" x1="180" y1="112" x2="292" y2="62" pathLength="1"/><line class="li-line" style="--i:2" x1="180" y1="112" x2="292" y2="162" pathLength="1"/><line class="li-line" style="--i:3" x1="180" y1="112" x2="180" y2="202" pathLength="1"/><line class="li-line" style="--i:4" x1="180" y1="112" x2="68" y2="162" pathLength="1"/><line class="li-line" style="--i:5" x1="180" y1="112" x2="68" y2="62" pathLength="1"/><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L180 22"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L292 62"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L292 162"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L180 202"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L68 162"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle><circle class="li-pulse" r="3"><animateMotion begin="indefinite" dur="2.8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1" path="M180 112 L68 62"/><animate attributeName="opacity" begin="indefinite" dur="2.8s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.1;.85;1"/></circle></svg>
+            <span class="li-core">Votre offre</span>
+            <span class="li-person" style="left:50.00%;top:9.82%;--i:0"><i class="li-ava"></i><b>Dirigeant</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span><span class="li-person" style="left:81.11%;top:27.68%;--i:1"><i class="li-ava"></i><b>DAF</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span><span class="li-person" style="left:81.11%;top:72.32%;--i:2"><i class="li-ava"></i><b>DRH</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span><span class="li-person" style="left:50.00%;top:90.18%;--i:3"><i class="li-ava"></i><b>Dir. commercial</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span><span class="li-person" style="left:18.89%;top:72.32%;--i:4"><i class="li-ava"></i><b>Marketing</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span><span class="li-person" style="left:18.89%;top:27.68%;--i:5"><i class="li-ava"></i><b>Achats</b><em class="li-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></em></span>
+            <span class="li-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lead qualifié</span>
+          </div>
+          <div class="adv-kpi"><b data-count="180" data-prefix="+">0</b><span>Leads B2B qualifiés / trimestre</span></div>
         </div>
       </div>
     </div>
@@ -523,7 +526,7 @@
 
 
 <a href="contact.html" class="floating-contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span>Nous contacter</span></a>
-<script src="assets/js/main.js?v=9f6e4c7b"></script>
-<script src="assets/js/animations.js?v=9f6e4c7b"></script>
+<script src="assets/js/main.js?v=bbeb5cc0"></script>
+<script src="assets/js/animations.js?v=bbeb5cc0"></script>
 </body>
 </html>
