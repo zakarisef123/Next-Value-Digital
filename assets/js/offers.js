@@ -54,9 +54,23 @@
           io.unobserve(el);
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" }
     );
     blocks.forEach((el) => io.observe(el));
+
+    // Safety net: reveal anything already reached, even if the observer
+    // missed it, so a plan can never stay invisible.
+    const reveal = (el) => {
+      if (el.classList.contains("is-in")) return;
+      el.classList.add("is-in", "is-settled");
+      el.querySelectorAll(".offer-price .num[data-to]").forEach((n) => { n.textContent = fmt.format(parseFloat(n.getAttribute("data-to"))); });
+      io.unobserve(el);
+    };
+    const sweep = () => blocks.forEach((el) => { if (el.getBoundingClientRect().top < window.innerHeight) reveal(el); });
+    let t = null;
+    window.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(sweep, 200); }, { passive: true });
+    window.addEventListener("load", () => setTimeout(sweep, 500));
+    window.addEventListener("hashchange", () => setTimeout(sweep, 100));
 
     // Cursor-following light on plan cards and the Prestige band.
     if (finePointer) {
