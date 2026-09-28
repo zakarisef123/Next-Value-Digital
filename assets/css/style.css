@@ -855,25 +855,14 @@ section{ padding: 110px 0; position: relative; }
   0%, 100%{ transform: translate(0, 0) scale(1); }
   50%{ transform: translate(26px, -22px) scale(1.05); }
 }
-.hero::before{ animation: float-orb 16s ease-in-out infinite; }
-.hero::after{ animation: float-orb 20s ease-in-out infinite reverse; }
+.hero::before{ animation: float-orb 26s ease-in-out infinite; }
+.hero::after{ animation: float-orb 32s ease-in-out infinite reverse; }
 
-/* twin-orb gentle rotation */
-@keyframes orb-spin{ to{ transform: rotate(360deg); } }
-.twin-orb svg > circle:first-of-type,
-.twin-orb svg{ transform-origin: center; }
-.twin-orb{ animation: orb-spin 60s linear infinite; }
 
-/* ---------- Reveal variants ---------- */
-[data-reveal]{ will-change: opacity, transform; }
-[data-reveal="left"]{ transform: translateX(-36px); }
-[data-reveal="right"]{ transform: translateX(36px); }
-[data-reveal="scale"]{ transform: scale(0.94); }
-[data-reveal="blur"]{ filter: blur(14px); transform: translateY(20px); }
-[data-reveal="left"].is-visible,
-[data-reveal="right"].is-visible,
-[data-reveal="scale"].is-visible{ transform: none; }
-[data-reveal="blur"].is-visible{ filter: blur(0); transform: none; }
+/* ---------- Reveal variants ----------
+   One entrance for the whole site: every [data-reveal] value (left, right,
+   scale, blur) now shares the same soft rise so motion reads as a system. */
+[data-reveal]{ will-change: opacity, transform; transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1); }
 
 /* ---------- Hero scroll indicator ---------- */
 .scroll-hint{
@@ -1431,3 +1420,271 @@ section{ padding: 110px 0; position: relative; }
 .spotlight .mark{ font-family: var(--font-display); font-size: 4rem; line-height: 0.5; color: var(--violet-light); opacity: 0.5; }
 .spotlight blockquote{ font-family: var(--font-display); font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 500; line-height: 1.4; margin: 20px 0; color: var(--text-dark); font-style: normal; border: none; padding: 0; }
 .section-dark .spotlight blockquote{ color: var(--text-light); }
+
+/* ==========================================================================
+   REFINED LAYER — luxury direction applied site-wide
+   Serif display for headlines and figures, champagne accents, the twin
+   gradient kept for a few key moments only (primary buttons, the hero's
+   highlighted word, scroll progress), quieter motion.
+   ========================================================================== */
+:root{
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --champagne: #E9CFA6;
+  --champagne-deep: #C9A06A;
+  --gradient-champagne: linear-gradient(120deg, #F6E3C4 0%, #E9CFA6 35%, #C9A06A 65%, #F0AD8C 100%);
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Page transitions (fade in is CSS-only; fade out via JS) ---------- */
+@keyframes page-in{ from{ opacity: 0; } to{ opacity: 1; } }
+body{ animation: page-in 0.7s ease both; }
+html.is-leaving body{ opacity: 0; transition: opacity 0.26s ease; }
+
+/* ---------- Typography ---------- */
+h1, h2{
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.04;
+}
+h1{ font-size: clamp(2.9rem, 6.2vw, 5.2rem); }
+h2{ font-size: clamp(2.3rem, 4.2vw, 3.4rem); }
+.hero h1 .text-gradient, .page-hero h1 .text-gradient{ font-style: italic; padding-right: 0.06em; }
+.section-head h2{ text-wrap: balance; }
+h1{ text-wrap: balance; }
+
+/* ---------- Header: smaller mark now that the logo file is cropped ---------- */
+.brand-mark{ height: 36px; }
+@media (max-width: 640px){ .brand-mark{ height: 32px; } }
+@media (max-width: 480px){ .brand-word{ display: none; } }
+.nav-links a::after{ height: 1px; background: var(--champagne); }
+.lang-switch a.active{ background: rgba(255,255,255,0.92); color: var(--ink); }
+
+/* ---------- Eyebrows: fine rule instead of a gradient dash ---------- */
+.eyebrow::before{ height: 1px; width: 28px; background: currentColor; opacity: 0.7; }
+
+/* ---------- Figures: serif, solid colour ---------- */
+.stat-row .stat b, .stat-band .sb b{
+  font-family: var(--font-serif); font-weight: 500;
+  background: none; color: var(--champagne);
+  -webkit-text-fill-color: currentColor;
+}
+.stat-row .stat b{ font-size: clamp(2.2rem, 3.4vw, 2.8rem); }
+.stat-band .sb b{ font-size: clamp(2.6rem, 5vw, 3.8rem); }
+.case-metric b, .founder-stats b{
+  font-family: var(--font-serif); font-weight: 600;
+  background: none; color: var(--violet-dark);
+  -webkit-text-fill-color: currentColor;
+}
+.case-metric b{ font-size: 2.3rem; }
+.founder-stats b{ font-size: 1.8rem; }
+
+/* ---------- Fewer gradients on small UI pieces ---------- */
+.card::before{ background: linear-gradient(160deg, rgba(108,76,245,0.55), rgba(233,207,166,0.7)); padding: 1px; }
+.process-num{
+  background: transparent;
+  color: var(--violet-dark);
+  border: 1px solid rgba(108,76,245,0.35);
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.4rem;
+  box-shadow: none;
+}
+.section-dark .process-num{ color: var(--champagne); border-color: rgba(233,207,166,0.4); }
+.sector-card .sector-promise{ background: none; color: var(--violet-dark); -webkit-text-fill-color: currentColor; }
+.social-row a:hover{ background: var(--champagne); color: var(--ink); }
+.social-row a:hover svg{ stroke: var(--ink); }
+.cat-pill.active{ background: var(--ink); }
+.faq-item.open .chev{ background: var(--ink); }
+.badge.solid{ background: var(--ink); }
+.floating-contact{ background: var(--ink); border: 1px solid rgba(233,207,166,0.35); }
+
+/* ---------- CTA band: dark, champagne hairline, room for the headline ---------- */
+.cta-band{
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(700px 360px at 90% 10%, rgba(108,76,245,0.3), transparent 60%),
+    radial-gradient(520px 300px at 0% 100%, rgba(233,207,166,0.12), transparent 60%),
+    linear-gradient(180deg, #121022, #0B0A14);
+  border-radius: 26px;
+  padding: 64px 68px;
+  gap: 36px 48px;
+}
+.cta-band::after{
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(120deg, rgba(233,207,166,0.7), rgba(233,207,166,0.06) 40%, rgba(233,207,166,0.06) 60%, rgba(201,160,106,0.6));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.cta-band > div{ flex: 1 1 460px; }
+.cta-band h2{ max-width: 20ch; margin-bottom: 16px; }
+.cta-band p{ max-width: 56ch; margin: 0; color: var(--muted-light); }
+@media (max-width: 640px){ .cta-band{ padding: 44px 28px; } }
+
+/* ---------- Cards: soft light that follows the cursor (animations.js) ---------- */
+.light-follow:hover{
+  background-image: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(108,76,245,0.07), transparent 60%);
+}
+.section-dark .light-follow:hover{
+  background-image: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(233,207,166,0.08), transparent 60%);
+}
+.card:hover{ transform: translateY(-5px); }
+.card, .sector-card, .blog-card{ transition: transform 0.7s var(--ease-lux), box-shadow 0.7s var(--ease-lux), border-color 0.4s ease; }
+
+/* ---------- Line icons replacing emojis ---------- */
+.line-icon{
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--gradient-twin-soft);
+  margin-bottom: 18px;
+}
+.line-icon svg{ width: 21px; height: 21px; stroke: var(--violet-dark); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce){
+  body{ animation: none; }
+  .hero::before, .hero::after{ animation: none; }
+}
+
+/* ---------- Legal pages ---------- */
+.legal-text{ max-width: 760px; }
+.legal-text h2{ font-size: clamp(1.7rem, 2.6vw, 2.1rem); margin: 44px 0 14px; }
+.legal-text h2:first-child{ margin-top: 0; }
+.legal-text p{ font-size: 0.98rem; line-height: 1.75; }
+.legal-text a{ color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
+.legal-todo{ display: inline-block; padding: 1px 8px; border-radius: 6px; background: rgba(226,130,92,0.14); color: var(--gold-dark); font-size: 0.85em; font-weight: 600; }
+
+/* ---------- Home: platforms merged into the trust section ---------- */
+.platform-caption{
+  margin: 46px 0 18px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted-dark);
+}
+
+/* ---------- "Data × Stratégie" duo: one dark composition ---------- */
+.duo{
+  position: relative;
+  isolation: isolate;
+  gap: 0;
+  border-radius: 26px;
+  overflow: hidden;
+  background:
+    radial-gradient(520px 300px at 0% 0%, rgba(108,76,245,0.3), transparent 60%),
+    radial-gradient(520px 300px at 100% 100%, rgba(226,130,92,0.18), transparent 60%),
+    linear-gradient(180deg, #121022, #0B0A14);
+  box-shadow: 0 30px 80px -40px rgba(11,10,20,0.6);
+}
+.duo > div{ padding: 60px 56px; background: none; }
+.duo .side-a, .duo .side-b{ background: none; color: var(--text-light); }
+.duo .side-b{ border-left: 1px solid rgba(233,207,166,0.18); }
+.duo h4{
+  font-family: var(--font-serif);
+  font-style: italic; font-weight: 500;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1;
+  margin-bottom: 18px;
+  background: var(--gradient-champagne);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.duo p{ color: var(--muted-light); opacity: 1; max-width: 42ch; }
+.duo::after{ /* the "×" that joins both halves */
+  content: "×";
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #0B0A14;
+  border: 1px solid rgba(233,207,166,0.35);
+  color: var(--champagne);
+  font-family: var(--font-serif); font-size: 1.6rem; line-height: 1;
+}
+@media (max-width: 980px){
+  .duo > div{ padding: 44px 32px; }
+  .duo .side-b{ border-left: 0; border-top: 1px solid rgba(233,207,166,0.18); }
+}
+h1, h2, .stat-row .stat b, .stat-band .sb b, .case-metric b, .founder-stats b, .offer-price, .pack-price{ font-variant-numeric: lining-nums; }
+
+/* ---------- Blog: typographic covers per category (no stock photos) ---------- */
+.blog-card .thumb[class*="cover-"]{
+  display: flex; align-items: flex-end;
+  padding: 22px 24px;
+  background-color: #0F0D1C;
+  background-image:
+    radial-gradient(420px 220px at var(--cx, 85%) var(--cy, 10%), var(--cc, rgba(108,76,245,0.45)), transparent 65%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 14px);
+}
+.blog-card .thumb.cover-seo{ --cc: rgba(108,76,245,0.5); }
+.blog-card .thumb.cover-publicite, .blog-card .thumb.cover-advertising{ --cc: rgba(226,130,92,0.45); --cx: 15%; }
+.blog-card .thumb.cover-branding{ --cc: rgba(233,207,166,0.38); --cy: 90%; }
+.blog-card .thumb.cover-social{ --cc: rgba(185,83,154,0.45); --cx: 20%; --cy: 20%; }
+.blog-card .thumb.cover-strategie, .blog-card .thumb.cover-strategy{ --cc: rgba(169,150,255,0.4); --cx: 70%; --cy: 85%; }
+.blog-card .cover{ position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; }
+.blog-card .cover i{
+  font-family: var(--font-serif); font-style: italic; font-weight: 500;
+  font-size: clamp(1.9rem, 2.6vw, 2.4rem); line-height: 1;
+  color: var(--text-light);
+}
+.blog-card .cover em{
+  font-style: normal;
+  font-family: var(--font-display); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em;
+  color: var(--champagne);
+}
+
+.blog-card .thumb::after{ background: linear-gradient(120deg, transparent 30%, rgba(233,207,166,0.12) 50%, transparent 70%); }
+.featured-visual.thumb{ background: radial-gradient(520px 300px at 80% 20%, rgba(108,76,245,0.5), transparent 65%), repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 14px), #0F0D1C; }
+
+/* ---------- Portfolio / partner cards: one calm, uniform treatment ---------- */
+.work-card, .work-card.c1, .work-card.c2, .work-card.c3, .work-card.c4, .work-card.c5, .work-card.c6{
+  background:
+    radial-gradient(420px 240px at 100% 0%, rgba(108,76,245,0.25), transparent 65%),
+    linear-gradient(180deg, #14122A, #0B0A14);
+}
+.work-card{
+  aspect-ratio: auto;
+  align-items: stretch;
+  padding: 62px 22px 26px;
+  border: 1px solid rgba(233,207,166,0.14);
+  transition: transform 0.7s var(--ease-lux), box-shadow 0.7s var(--ease-lux), border-color 0.4s ease;
+}
+.work-card:hover{ transform: translateY(-5px); border-color: rgba(233,207,166,0.4); box-shadow: 0 30px 70px -35px rgba(11,10,20,0.7); }
+.work-card .overlay{ display: none; }
+.work-card .tag{ top: 20px; left: 22px; background: none; backdrop-filter: none; border: 1px solid rgba(233,207,166,0.4); color: var(--champagne); font-size: 0.64rem; letter-spacing: 0.16em; }
+.work-card .body{ display: flex; flex-direction: column; width: 100%; }
+.work-card .logo-chip{
+  width: 100%; max-width: none; height: 150px;
+  display: grid; place-items: center;
+  margin: 0 0 22px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: none;
+}
+.work-card .logo-chip img{ max-height: 84px; max-width: 70%; }
+.work-card .body h3{ font-family: var(--font-serif); font-size: 1.75rem; font-weight: 600; line-height: 1.05; }
+.work-card .body > span{ font-size: 0.88rem; opacity: 1; color: var(--muted-light); }
+.work-card .result-pill{ display: block; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted-light); }
+.work-card .result-pill b{ color: var(--champagne); font-weight: 600; }
+
+/* ---------- Remaining price cards (services page) match the pricing page ---------- */
+.price-card{ border-radius: 22px; }
+.price-card h3{ font-family: var(--font-serif); font-size: 2rem; font-weight: 600; }
+.price-card .amount{ font-family: var(--font-serif); font-weight: 500; animation: none; filter: none; }
+.price-card.featured{
+  transform: none;
+  background:
+    radial-gradient(600px 300px at 100% 0%, rgba(108,76,245,0.28), transparent 60%),
+    var(--ink);
+  box-shadow: 0 30px 80px -30px rgba(74,47,203,0.55), inset 0 0 0 1px rgba(233,207,166,0.3);
+}
+.price-card.featured h3, .price-card.featured .amount{ color: var(--champagne); }
+.price-card.featured ul li svg{ stroke: var(--champagne); }
+.step-v .sv-num{
+  background: #fff; color: var(--violet-dark);
+  border: 1px solid rgba(108,76,245,0.35);
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.2rem;
+}
+.step-v .sv-line{ width: 1px; }
+@media (max-width: 640px){ .hero .eyebrow{ font-size: 0.78rem; letter-spacing: 0.18em; } }

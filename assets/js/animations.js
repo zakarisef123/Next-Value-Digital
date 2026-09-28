@@ -1,9 +1,9 @@
 // Next Value Digital — shared motion layer (loaded on every page)
 // Generic fade-in/slide-up ([data-reveal]) and count-up ([data-count])
 // already run from assets/js/main.js. This file adds everything else:
-// the illustrative page visuals ([data-animate]) plus site-wide polish
-// (magnetic buttons, 3D tilt cards, cursor spotlight, word-by-word
-// heading reveals, a scroll-to-top button and the contact timeline draw-in).
+// the illustrative page visuals ([data-animate]) plus restrained site-wide
+// polish: a soft light that follows the cursor on cards, fade transitions
+// between pages, a scroll-to-top button and the contact timeline draw-in.
 document.addEventListener("DOMContentLoaded", () => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = window.matchMedia("(pointer: fine)").matches;
@@ -29,115 +29,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ---------- Word-by-word heading reveal ----------
-  const wrapWords = (el) => {
-    const walk = (node) => {
-      Array.from(node.childNodes).forEach((child) => {
-        if (child.nodeType === Node.TEXT_NODE) {
-          if (!child.textContent.trim()) return;
-          const frag = document.createDocumentFragment();
-          child.textContent.split(/(\s+)/).forEach((part) => {
-            if (part === "") return;
-            if (/^\s+$/.test(part)) {
-              frag.appendChild(document.createTextNode(part));
-              return;
-            }
-            const outer = document.createElement("span");
-            outer.className = "word-split";
-            const inner = document.createElement("span");
-            inner.className = "word";
-            inner.textContent = part;
-            outer.appendChild(inner);
-            frag.appendChild(outer);
-          });
-          node.replaceChild(frag, child);
-        } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== "BR") {
-          // background-clip:text gradients only paint through the element's
-          // own inline text run — nesting inline-block word spans inside
-          // breaks the clip and makes the text invisible, so leave it as-is.
-          const cs = window.getComputedStyle(child);
-          const clip = cs.webkitBackgroundClip || cs.backgroundClip || "";
-          if (clip.indexOf("text") !== -1) return;
-          walk(child);
-        }
+  // ---------- Soft light that follows the cursor on cards ----------
+  if (!reduceMotion && finePointer) {
+    document
+      .querySelectorAll(".card, .work-card, .blog-card, .featured-article, .founder-card, .sector-card, .method-item, .case-card")
+      .forEach((card) => {
+        card.classList.add("light-follow");
+        card.addEventListener("mousemove", (e) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+          card.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+        });
       });
-    };
-    walk(el);
-    el.querySelectorAll(".word").forEach((w, i) => {
-      w.style.transitionDelay = Math.min(i * 0.05, 0.6) + "s";
-    });
-  };
+  }
 
+  // ---------- Fade transition between internal pages ----------
+  // The fade-in is pure CSS (body animation), so pages stay visible if JS
+  // fails; here we only fade out before following a same-site link.
   if (!reduceMotion) {
-    document.querySelectorAll(".section-head h1, .section-head h2").forEach(wrapWords);
-  }
-
-  // ---------- Cinematic focus-pull reveal for hero titles ----------
-  // Base CSS keeps the title fully visible by default (safe if JS never
-  // runs); we add "reveal-start" synchronously then remove it on the next
-  // frame so the CSS transition on the title itself animates it back in.
-  if (!reduceMotion) {
-    const heroHeadings = document.querySelectorAll(".hero h1, .page-hero h1");
-    heroHeadings.forEach((h) => h.classList.add("reveal-start"));
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        heroHeadings.forEach((h) => h.classList.remove("reveal-start"));
-      });
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target && a.target !== "_self") return;
+      if (a.hasAttribute("download")) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || !/\.html?$|\/$/.test(url.pathname)) return;
+      if (url.pathname === location.pathname && url.hash) return;
+      e.preventDefault();
+      document.documentElement.classList.add("is-leaving");
+      setTimeout(() => { location.href = url.href; }, 260);
     });
-  }
-
-  // ---------- Magnetic buttons ----------
-  if (!reduceMotion && finePointer) {
-    document.querySelectorAll(".btn").forEach((btn) => {
-      btn.classList.add("magnetic-btn");
-      btn.addEventListener("mousemove", (e) => {
-        const r = btn.getBoundingClientRect();
-        const nx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
-        const ny = (e.clientY - r.top - r.height / 2) / (r.height / 2);
-        btn.style.transform = `translate(${nx * 8}px, ${ny * 8 - 2}px)`;
-      });
-      btn.addEventListener("mouseleave", () => {
-        btn.style.transform = "";
-      });
-    });
-  }
-
-  // ---------- 3D tilt on cards ----------
-  if (!reduceMotion && finePointer) {
-    const tiltEls = document.querySelectorAll(
-      ".card, .price-card, .work-card, .blog-card, .featured-article, .founder-card, .sector-card, .method-item"
-    );
-    tiltEls.forEach((card) => {
-      card.classList.add("tilt-target");
-      card.addEventListener("mousemove", (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
-        const rx = (py - 0.5) * -9;
-        const ry = (px - 0.5) * 9;
-        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
-      });
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "";
-      });
-    });
-  }
-
-  // ---------- Cursor spotlight in hero sections ----------
-  if (!reduceMotion && finePointer) {
-    document.querySelectorAll(".hero, .page-hero").forEach((section) => {
-      const spot = document.createElement("div");
-      spot.className = "cursor-spotlight";
-      spot.setAttribute("aria-hidden", "true");
-      section.insertBefore(spot, section.firstChild);
-      section.addEventListener("mousemove", (e) => {
-        const r = section.getBoundingClientRect();
-        spot.style.setProperty("--sx", ((e.clientX - r.left) / r.width) * 100 + "%");
-        spot.style.setProperty("--sy", ((e.clientY - r.top) / r.height) * 100 + "%");
-        spot.classList.add("is-on");
-      });
-      section.addEventListener("mouseleave", () => spot.classList.remove("is-on"));
-    });
+    // restore when coming back through the back/forward cache
+    window.addEventListener("pageshow", () => document.documentElement.classList.remove("is-leaving"));
   }
 
   // ---------- Scroll-to-top button ----------
@@ -174,114 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       timelines.forEach((t) => tio.observe(t));
     }
-  }
-
-  // ---------- Twinkling starfield in dark sections ----------
-  if (!reduceMotion) {
-    document.querySelectorAll(".hero, .page-hero, .section-dark").forEach((section) => {
-      const stars = document.createElement("div");
-      stars.className = "starfield-layer";
-      stars.setAttribute("aria-hidden", "true");
-      section.insertBefore(stars, section.firstChild);
-    });
-  }
-
-  // ---------- Cinematic sweeping spotlight beams (hero sections only) ----------
-  if (!reduceMotion) {
-    document.querySelectorAll(".hero, .page-hero").forEach((section) => {
-      const beams = document.createElement("div");
-      beams.className = "spotlight-beams";
-      beams.setAttribute("aria-hidden", "true");
-      beams.innerHTML = '<span class="beam"></span><span class="beam"></span><span class="beam"></span>';
-      section.insertBefore(beams, section.firstChild);
-    });
-  }
-
-  // ---------- Rotating glow ring on device panels & featured pricing ----------
-  document
-    .querySelectorAll(".laptop-screen, .device-mock, .inbox-mock, .price-card.featured, .price-card.prestige")
-    .forEach((el) => el.classList.add("glow-ring"));
-
-  // ---------- Canvas particle network (cinematic data-flow background) ----------
-  if (!reduceMotion && "requestAnimationFrame" in window) {
-    document.querySelectorAll(".hero, .page-hero").forEach((section) => {
-      const canvas = document.createElement("canvas");
-      canvas.className = "particle-canvas";
-      canvas.setAttribute("aria-hidden", "true");
-      section.insertBefore(canvas, section.firstChild);
-      startParticleNetwork(canvas, section);
-    });
-  }
-
-  function startParticleNetwork(canvas, section) {
-    const ctx = canvas.getContext("2d");
-    const colors = ["108,76,245", "185,83,154", "226,130,92"];
-    const maxLinkDist = 130;
-    let w = 0;
-    let h = 0;
-    let particles = [];
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    const buildParticles = () => {
-      const count = Math.min(70, Math.max(24, Math.round((w * h) / 16000)));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.28,
-        vy: (Math.random() - 0.5) * 0.28,
-        r: Math.random() * 1.6 + 1.1,
-        color: colors[(Math.random() * colors.length) | 0],
-      }));
-    };
-
-    const resize = () => {
-      w = section.offsetWidth;
-      h = section.offsetHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildParticles();
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const step = () => {
-      ctx.clearRect(0, 0, w, h);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x <= 0 || p.x >= w) p.vx *= -1;
-        if (p.y <= 0 || p.y >= h) p.vy *= -1;
-      });
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i];
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < maxLinkDist) {
-            ctx.strokeStyle = `rgba(200,190,255,${(1 - dist / maxLinkDist) * 0.22})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      particles.forEach((p) => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color},0.95)`;
-        ctx.shadowBlur = 9;
-        ctx.shadowColor = `rgba(${p.color},0.85)`;
-        ctx.fill();
-      });
-      ctx.shadowBlur = 0;
-      requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
   }
 
   // ---------- SVG icon stroke draw-in (services, values, features) ----------
