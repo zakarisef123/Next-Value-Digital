@@ -7,13 +7,6 @@
    entirely skipped under prefers-reduced-motion.
    ========================================================================== */
 
-:root{
-  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
-  --champagne: #E9CFA6;
-  --champagne-deep: #C9A06A;
-  --gradient-champagne: linear-gradient(120deg, #F6E3C4 0%, #E9CFA6 35%, #C9A06A 65%, #F0AD8C 100%);
-  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 /* ---------- Reassurance pills under the heading ---------- */
 .offer-assurances{

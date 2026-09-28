@@ -74,8 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const prefix = el.getAttribute("data-prefix") || "";
       const suffix = el.getAttribute("data-suffix") || "";
       const decimals = (el.getAttribute("data-count").split(".")[1] || "").length;
+      // locale-aware digits: "2,5" on French pages, "2.5" on English ones
+      const lang = document.documentElement.lang || "fr";
+      const fmt = (v) => v.toLocaleString(lang, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
       if (reduceMotion) {
-        el.textContent = prefix + target.toFixed(decimals) + suffix;
+        el.textContent = prefix + fmt(target) + suffix;
         return;
       }
       const duration = 1400;
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const step = (now) => {
         const p = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+        el.textContent = prefix + fmt(target * eased) + suffix;
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
