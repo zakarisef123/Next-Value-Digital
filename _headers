@@ -1,0 +1,10 @@
+# Netlify headers: pages are always revalidated so a visitor never mixes a
+# new page with old styles; CSS/JS carry a ?v= version in their URL.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
