@@ -56,6 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
+            // the stagger delay is for the entrance only: clear it so hover
+            // states respond immediately afterwards
+            const el = entry.target;
+            setTimeout(() => { el.style.transitionDelay = ""; }, 1800);
           }
         });
       },

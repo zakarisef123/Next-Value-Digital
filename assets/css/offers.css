@@ -397,3 +397,108 @@
   .offer-card, .pack-card, .pack-icon, .compare summary svg{ transition: none !important; }
   .prestige-band .sheen{ display: none; }
 }
+
+/* ==========================================================================
+   Budget finder — "whatever your budget" entry point at the top of the page
+   ========================================================================== */
+#budget, #packs, #forfaits, #prestige, #sur-mesure{ scroll-margin-top: 96px; }
+.page-hero .chip-row{ margin-top: 26px; }
+
+.budget-finder{
+  margin: 50px auto 0;
+  max-width: 1040px;
+  padding: 40px 44px 34px;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 26px;
+  box-shadow: 0 30px 80px -50px rgba(20,18,31,0.35);
+}
+.budget-tabs{
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  padding: 6px;
+  background: var(--paper-dim);
+  border-radius: 999px;
+}
+.budget-tab{
+  position: relative;
+  padding: 13px 10px;
+  border: 0; border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 600;
+  color: var(--muted-dark);
+  cursor: pointer;
+  transition: color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+.budget-tab:hover{ color: var(--text-dark); }
+.budget-tab.is-active{ background: var(--ink); color: #fff; box-shadow: 0 10px 24px -12px rgba(11,10,20,0.6); }
+.budget-tab:focus-visible{ outline: 2px solid var(--violet); outline-offset: 2px; }
+
+/* price ladder: one honest line from the smallest to the largest budget */
+.price-ladder{ position: relative; height: 62px; margin: 34px 14px 8px; }
+.ladder-track{ position: absolute; left: 0; right: 0; top: 10px; height: 4px; border-radius: 4px; background: var(--line-soft); }
+.ladder-fill{
+  position: absolute; top: 0; bottom: 0;
+  border-radius: 4px;
+  background: var(--gradient-twin);
+  box-shadow: 0 0 18px rgba(185,83,154,0.45);
+  transition: left 0.9s var(--ease-lux), width 0.9s var(--ease-lux);
+}
+.ladder-tick{ position: absolute; top: 0; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.ladder-tick i{ width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; background: #fff; border: 2px solid var(--line-soft); transition: border-color 0.5s ease, transform 0.5s var(--ease-lux); }
+.ladder-tick.is-in i{ border-color: var(--magenta); transform: scale(1.25); }
+.ladder-tick b{ font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600; color: var(--muted-dark); white-space: nowrap; transition: color 0.4s ease; }
+.ladder-tick.is-in b{ color: var(--text-dark); }
+.ladder-tick.is-end{ transform: translateX(-100%); align-items: flex-end; }
+
+.budget-panel{ display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 36px; align-items: center; padding-top: 22px; }
+.budget-finder.js-on .budget-panel:not(.is-active){ display: none; }
+.budget-finder:not(.js-on) .budget-panel + .budget-panel{ border-top: 1px solid var(--line-soft); margin-top: 22px; }
+.budget-copy h3{ font-family: var(--font-serif); font-size: 2.1rem; font-weight: 600; line-height: 1.05; margin-bottom: 12px; }
+.budget-copy p{ margin: 0; font-size: 0.95rem; }
+.budget-opts{ display: flex; flex-direction: column; gap: 10px; }
+.budget-opt{
+  display: grid; grid-template-columns: 1fr auto 18px; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: var(--paper);
+  transition: border-color 0.4s ease, transform 0.6s var(--ease-lux), background 0.4s ease;
+}
+.budget-opt span{ font-weight: 600; color: var(--text-dark); font-size: 0.95rem; }
+.budget-opt b{ font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: var(--violet-dark); white-space: nowrap; }
+.budget-opt svg{ width: 18px; height: 18px; stroke: var(--muted-dark); transition: transform 0.5s var(--ease-lux), stroke 0.3s ease; }
+.budget-opt:hover{ border-color: rgba(108,76,245,0.35); background: #fff; transform: translateX(4px); }
+.budget-opt:hover svg{ transform: translateX(4px); stroke: var(--violet); }
+.budget-note{
+  margin: 28px 0 0; padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.85rem; text-align: center; color: var(--muted-dark);
+}
+
+/* panel change: copy and options rise in one after another */
+.offers-motion .budget-panel.is-entering .budget-copy,
+.offers-motion .budget-panel.is-entering .budget-opt{ opacity: 0; transform: translateY(16px); }
+.offers-motion .budget-panel .budget-copy,
+.offers-motion .budget-panel .budget-opt{ transition: opacity 0.6s ease, transform 0.8s var(--ease-lux), border-color 0.4s ease, background 0.4s ease; }
+.offers-motion .budget-panel .budget-opt:nth-child(2){ transition-delay: 0.06s; }
+.offers-motion .budget-panel .budget-opt:nth-child(3){ transition-delay: 0.12s; }
+.offers-motion .budget-panel .budget-opt:nth-child(4){ transition-delay: 0.18s; }
+.offers-motion .budget-panel .budget-opt:hover{ transition-delay: 0s; }
+
+@media (max-width: 860px){
+  .budget-finder{ padding: 26px 20px 24px; }
+  .budget-tabs{ grid-template-columns: 1fr 1fr; border-radius: 20px; }
+  .budget-panel{ grid-template-columns: 1fr; gap: 22px; }
+  .ladder-tick b{ font-size: 0.85rem; }
+  .ladder-tick:nth-of-type(3) b, .ladder-tick:nth-of-type(5) b{ transform: translateY(18px); }
+  .price-ladder{ height: 80px; }
+}
+@media (max-width: 480px){ .budget-opt{ grid-template-columns: 1fr auto; } .budget-opt svg{ display: none; } }
+.ladder-tick b, .budget-opt b, .budget-copy h3{ font-variant-numeric: lining-nums; }
+@media (max-width: 860px){
+  .ladder-tick:nth-of-type(3) b, .ladder-tick:nth-of-type(5) b{ transform: none; }
+  .price-ladder{ height: 62px; }
+  .ladder-tick b{ opacity: 0; transition: opacity 0.4s ease; }
+  .ladder-tick.is-in b{ opacity: 1; }
+}
+@media (max-width: 480px){ .budget-opt{ grid-template-columns: 1fr; gap: 4px; } }

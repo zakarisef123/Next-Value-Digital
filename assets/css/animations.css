@@ -597,3 +597,104 @@ a[data-reveal].is-visible .featured-visual::before{ transform: scaleX(0); }
   .blog-card .thumb::before, .featured-visual::before{ display: none !important; }
   .icon-wrap svg [data-draw]{ stroke-dashoffset: 0 !important; transition: none !important; }
 }
+
+/* ==========================================================================
+   SIGNATURE MOTION LAYER — styles for the last block of animations.js.
+   Everything is scoped under html.motion-on, which JS only sets when the
+   visitor has not asked for reduced motion.
+   ========================================================================== */
+
+/* ---------- Masked word reveal ---------- */
+.motion-on .split-ready .w{
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.04em 0.02em 0.12em;
+  margin: -0.04em -0.02em -0.12em;
+}
+.motion-on .split-ready .wi{
+  display: inline-block;
+  transform: translateY(115%) rotate(5deg);
+  transform-origin: 0 100%;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--wd, 0s);
+}
+.motion-on .split-ready.split-in .wi{ transform: none; }
+
+/* ---------- Scroll-lit statements ---------- */
+.motion-on [data-scroll-text] .lit{ opacity: 0.16; transition: opacity 0.45s ease, color 0.45s ease; }
+.motion-on [data-scroll-text] .lit.on{ opacity: 1; }
+
+/* ---------- 3D entrance for cards: they rise and settle forward ----------
+   :where() keeps this at low specificity so hover states still win once
+   the card is visible. */
+.motion-on :where(.card, .sector-card, .blog-card, .work-card, .method-item, .founder-card, .process-step, .pack-card, .include-col, .featured-article)[data-reveal]:not(.is-visible){
+  opacity: 0;
+  transform: perspective(1200px) translateY(60px) rotateX(12deg) scale(0.96);
+  transform-origin: 50% 0%;
+}
+.motion-on :where(.card, .sector-card, .blog-card, .work-card, .method-item, .founder-card, .process-step, .pack-card, .include-col, .featured-article)[data-reveal]{
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease, border-color 0.4s ease;
+}
+
+/* eyebrow rule draws in with its heading block */
+.motion-on [data-reveal] .eyebrow::before{ transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s; }
+.motion-on [data-reveal].is-visible .eyebrow::before{ transform: scaleX(1); }
+
+/* ---------- Header steps aside while reading ---------- */
+.site-header{ transition: padding 0.3s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1), background 0.4s ease; }
+.site-header.is-tucked{ transform: translateY(-100%); }
+
+/* ---------- Rolling button labels ---------- */
+.roll{
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 1.25;
+}
+.roll > span{ display: inline-block; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.roll::after{
+  content: attr(data-text);
+  position: absolute; left: 0; right: 0; top: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.link-cta .roll::after{ text-align: left; }
+a:hover > .roll > span, button:hover > .roll > span,
+a:hover > .roll::after, button:hover > .roll::after{ transform: translateY(-100%); }
+
+/* magnetic buttons ease back when released */
+.btn-primary, .btn-light, .btn-champagne{ transition: translate 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.3s ease, box-shadow 0.3s ease; }
+
+/* ---------- Cursor ring ---------- */
+.cursor-ring, .cursor-dot{
+  position: fixed; top: 0; left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cursor-visible .cursor-ring, .cursor-visible .cursor-dot{ opacity: 1; }
+.cursor-ring::before{
+  content: "";
+  position: absolute;
+  width: 34px; height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 1px solid rgba(233,207,166,0.9);
+  mix-blend-mode: difference;
+  transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), background 0.3s ease, border-color 0.3s ease;
+}
+.cursor-ring.is-hover::before{ transform: scale(1.9); background: rgba(233,207,166,0.12); border-color: rgba(233,207,166,0.5); }
+.cursor-ring.is-press::before{ transform: scale(0.8); }
+.cursor-dot::before{
+  content: "";
+  position: absolute;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--champagne, #E9CFA6);
+  mix-blend-mode: difference;
+}
+@media (pointer: coarse){ .cursor-ring, .cursor-dot{ display: none; } }
