@@ -20,12 +20,28 @@ document.addEventListener("DOMContentLoaded", () => {
             if (entry.isIntersecting) {
               entry.target.classList.add("is-active");
               io.unobserve(entry.target);
+              // About "acquisition system": once the levers are wired in,
+              // start the SMIL pulses travelling to the core, one per lever
+              if (entry.target.dataset.animate === "system") {
+                entry.target.querySelectorAll(".sys-pulse").forEach((pulse, i) => {
+                  setTimeout(() => {
+                    pulse.querySelectorAll("animateMotion, animate").forEach((a) => a.beginElement && a.beginElement());
+                  }, 1800 + i * 400);
+                });
+              }
             }
           });
         },
-        { threshold: 0.35 }
+        { threshold: 0.15 }
       );
       animEls.forEach((el) => io.observe(el));
+      window.addEventListener("scroll", () => {
+        animEls.forEach((el) => {
+          if (!el.classList.contains("is-active") && el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+            el.classList.add("is-active");
+          }
+        });
+      }, { passive: true });
     }
   }
 
@@ -210,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries) => entries.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add("split-in"); titleIo.unobserve(e.target); }
     }),
-    { threshold: 0.3, rootMargin: "0px 0px -6% 0px" }
+    { threshold: 0, rootMargin: "0px 0px -6% 0px" }
   );
   sectionTitles.forEach((t) => titleIo.observe(t));
 
@@ -249,6 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(sel).forEach((el) => parallax.push({ el, speed }));
   addParallax(".laptop-mockup", 0.1);
   addParallax(".twin-orb", 0.12);
+  addParallax(".system-visual", 0.08);
   addParallax(".case-visual", 0.05);
   addParallax(".featured-visual .article-mock", 0.08);
   const heroCopy = document.querySelector(".hero .hero-grid > div:first-child");
@@ -270,6 +287,11 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (y < lastY - 4 || y < 320) header.classList.remove("is-tucked");
     }
     lastY = y;
+
+    // safety net for headline reveals the observer may have missed
+    sectionTitles.forEach((t) => {
+      if (!t.classList.contains("split-in") && t.getBoundingClientRect().top < vh) t.classList.add("split-in");
+    });
 
     parallax.forEach(({ el, speed }) => {
       const r = el.getBoundingClientRect();

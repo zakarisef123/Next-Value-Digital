@@ -63,9 +63,30 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
     );
     revealEls.forEach((el) => io.observe(el));
+
+    // Safety net: never leave content hidden. Anything already scrolled
+    // into or past the viewport is revealed, even if the observer missed it
+    // (fast scrolling, anchor jumps, browser quirks).
+    const sweep = () => {
+      const limit = window.innerHeight;
+      revealEls.forEach((el) => {
+        if (el.classList.contains("is-visible")) return;
+        if (el.getBoundingClientRect().top < limit) {
+          el.classList.add("is-visible");
+          io.unobserve(el);
+        }
+      });
+    };
+    let sweepTimer = null;
+    window.addEventListener("scroll", () => {
+      clearTimeout(sweepTimer);
+      sweepTimer = setTimeout(sweep, 150);
+    }, { passive: true });
+    window.addEventListener("load", () => setTimeout(sweep, 400));
+    window.addEventListener("hashchange", () => setTimeout(sweep, 100));
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
