@@ -1436,9 +1436,28 @@ section{ padding: 110px 0; position: relative; }
 }
 
 /* ---------- Page transitions (fade in is CSS-only; fade out via JS) ---------- */
-@keyframes page-in{ from{ opacity: 0; } to{ opacity: 1; } }
-body{ animation: page-in 0.7s ease both; }
-html.is-leaving body{ opacity: 0; transition: opacity 0.26s ease; }
+/* A dark curtain carrying the logo lifts on arrival (CSS only, so content is
+   never stuck hidden) and drops back down before leaving (animations.js). */
+body::after{
+  content: "";
+  position: fixed; inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background:
+    url("../img/NextValue.png") center / 72px auto no-repeat,
+    radial-gradient(600px 400px at 50% 50%, rgba(108,76,245,0.22), transparent 70%),
+    #0B0A14;
+  animation: curtain-lift 1s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
+}
+@keyframes curtain-lift{
+  0%{ transform: translateY(0); }
+  100%{ transform: translateY(-101%); }
+}
+html.is-leaving body::after{ animation: curtain-drop 0.55s cubic-bezier(0.76, 0, 0.24, 1) both; }
+@keyframes curtain-drop{
+  0%{ transform: translateY(101%); }
+  100%{ transform: translateY(0); }
+}
 
 /* ---------- Typography ---------- */
 h1, h2{
@@ -1542,7 +1561,7 @@ h1{ text-wrap: balance; }
 .line-icon svg{ width: 21px; height: 21px; stroke: var(--violet-dark); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (prefers-reduced-motion: reduce){
-  body{ animation: none; }
+  body::after{ display: none; }
   .hero::before, .hero::after{ animation: none; }
 }
 
@@ -1688,3 +1707,10 @@ h1, h2, .stat-row .stat b, .stat-band .sb b, .case-metric b, .founder-stats b, .
 }
 .step-v .sv-line{ width: 1px; }
 @media (max-width: 640px){ .hero .eyebrow{ font-size: 0.78rem; letter-spacing: 0.18em; } }
+
+/* ---------- "From €300" reassurance line under key CTAs ---------- */
+.price-hint{ margin: 18px 0 0; text-align: center; font-size: 0.88rem; color: var(--muted-dark); }
+.price-hint a{ color: var(--violet-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.section-dark .price-hint{ color: var(--muted-light); }
+.section-dark .price-hint a{ color: var(--champagne); }
+body{ font-variant-numeric: lining-nums; }

@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (url.pathname === location.pathname && url.hash) return;
       e.preventDefault();
       document.documentElement.classList.add("is-leaving");
-      setTimeout(() => { location.href = url.href; }, 260);
+      setTimeout(() => { location.href = url.href; }, 560);
     });
     // restore when coming back through the back/forward cache
     window.addEventListener("pageshow", () => document.documentElement.classList.remove("is-leaving"));
@@ -135,4 +135,228 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     iconSvgs.forEach((svg) => iconIo.observe(svg));
   }
+});
+
+// ==========================================================================
+// Signature motion layer — cinematic but controlled.
+// Page curtain, masked headline reveals, scroll-lit statements, parallax,
+// 3D card entrances (CSS), cursor ring, magnetic CTAs, rolling button
+// labels and a header that steps aside while reading. All of it is skipped
+// under prefers-reduced-motion; the page is fully readable without JS.
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  if (reduceMotion) return;
+  const root = document.documentElement;
+  root.classList.add("motion-on");
+
+  // ---------- Masked word reveal for headlines ----------
+  const isClipText = (el) => {
+    const cs = window.getComputedStyle(el);
+    return (cs.webkitBackgroundClip || cs.backgroundClip || "").indexOf("text") !== -1;
+  };
+  const mask = (inner) => {
+    const outer = document.createElement("span");
+    outer.className = "w";
+    outer.appendChild(inner);
+    return outer;
+  };
+  const splitWords = (el) => {
+    if (el.dataset.split) return;
+    el.dataset.split = "1";
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          if (!child.textContent.trim()) return;
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+            const wi = document.createElement("span");
+            wi.className = "wi";
+            wi.textContent = part;
+            frag.appendChild(mask(wi));
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== "BR") {
+          // gradient-clipped text must stay one run: animate it as one word
+          if (isClipText(child)) {
+            const wi = document.createElement("span");
+            wi.className = "wi";
+            child.replaceWith(mask(wi));
+            wi.appendChild(child);
+          } else {
+            walk(child);
+          }
+        }
+      });
+    };
+    walk(el);
+    el.querySelectorAll(".wi").forEach((w, i) => w.style.setProperty("--wd", Math.min(i * 0.055, 0.9) + "s"));
+    el.classList.add("split-ready");
+  };
+
+  const heroTitles = document.querySelectorAll(".hero h1, .page-hero h1");
+  heroTitles.forEach(splitWords);
+  // let the page curtain lift first, then bring the title up
+  setTimeout(() => heroTitles.forEach((h) => h.classList.add("split-in")), 420);
+
+  const sectionTitles = document.querySelectorAll(
+    ".section-head h2, .cta-band h2, .grid-2 h2, .feature-row h2, .legal-text h2"
+  );
+  sectionTitles.forEach(splitWords);
+  const titleIo = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("split-in"); titleIo.unobserve(e.target); }
+    }),
+    { threshold: 0.3, rootMargin: "0px 0px -6% 0px" }
+  );
+  sectionTitles.forEach((t) => titleIo.observe(t));
+
+  // ---------- Statements that light up word by word as you scroll ----------
+  const litEls = Array.from(document.querySelectorAll("[data-scroll-text]"));
+  litEls.forEach((el) => {
+    const words = [];
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          if (!child.textContent.trim()) return;
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            const s = document.createElement("span");
+            s.className = "lit";
+            s.textContent = part;
+            words.push(s);
+            frag.appendChild(s);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+    el._words = words;
+  });
+
+  // ---------- Parallax (uses the independent `translate` property so it
+  // never fights hover/entrance transforms) ----------
+  const parallax = [];
+  const addParallax = (sel, speed) =>
+    document.querySelectorAll(sel).forEach((el) => parallax.push({ el, speed }));
+  addParallax(".laptop-mockup", 0.1);
+  addParallax(".twin-orb", 0.12);
+  addParallax(".case-visual", 0.05);
+  addParallax(".featured-visual .article-mock", 0.08);
+  const heroCopy = document.querySelector(".hero .hero-grid > div:first-child");
+
+  // ---------- Header steps aside while reading, returns on scroll up ----------
+  const header = document.querySelector(".site-header");
+  const navLinks = document.querySelector(".nav-links");
+  let lastY = window.scrollY;
+
+  let ticking = false;
+  const onFrame = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+
+    if (header) {
+      const menuOpen = navLinks && navLinks.classList.contains("open");
+      if (y > 320 && y > lastY + 4 && !menuOpen) header.classList.add("is-tucked");
+      else if (y < lastY - 4 || y < 320) header.classList.remove("is-tucked");
+    }
+    lastY = y;
+
+    parallax.forEach(({ el, speed }) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      const offset = (r.top + r.height / 2 - vh / 2) * -speed;
+      el.style.translate = `0 ${offset.toFixed(1)}px`;
+    });
+
+    if (heroCopy) {
+      const p = Math.min(Math.max(y / (vh * 0.9), 0), 1);
+      heroCopy.style.translate = `0 ${(y * 0.18).toFixed(1)}px`;
+      heroCopy.style.opacity = (1 - p * 0.85).toFixed(3);
+    }
+
+    litEls.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      // 0 when the block enters at 88% of the viewport, 1 when it reaches 38%
+      const start = vh * 0.88;
+      const end = vh * 0.38 - r.height * 0.4;
+      const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
+      const n = Math.round(p * el._words.length);
+      el._words.forEach((w, i) => w.classList.toggle("on", i < n));
+    });
+  };
+  const requestFrame = () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(onFrame); }
+  };
+  window.addEventListener("scroll", requestFrame, { passive: true });
+  window.addEventListener("resize", requestFrame);
+  onFrame();
+
+  // ---------- Rolling labels on buttons (text-only buttons) ----------
+  document.querySelectorAll(".btn, .link-cta").forEach((btn) => {
+    if (btn.children.length || !btn.textContent.trim()) return;
+    const label = btn.textContent.trim();
+    btn.setAttribute("aria-label", label);
+    btn.innerHTML = "";
+    const roll = document.createElement("span");
+    roll.className = "roll";
+    roll.setAttribute("aria-hidden", "true");
+    roll.dataset.text = label;
+    const inner = document.createElement("span");
+    inner.textContent = label;
+    roll.appendChild(inner);
+    btn.appendChild(roll);
+  });
+
+  if (!finePointer) return;
+
+  // ---------- Magnetic primary calls to action ----------
+  document.querySelectorAll(".btn-primary, .btn-light, .btn-champagne").forEach((btn) => {
+    btn.addEventListener("mousemove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) * 0.22;
+      const dy = (e.clientY - r.top - r.height / 2) * 0.32;
+      btn.style.translate = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`;
+    });
+    btn.addEventListener("mouseleave", () => { btn.style.translate = ""; });
+  });
+
+  // ---------- Cursor ring that eases after the pointer ----------
+  const ring = document.createElement("div");
+  ring.className = "cursor-ring";
+  ring.setAttribute("aria-hidden", "true");
+  const dot = document.createElement("div");
+  dot.className = "cursor-dot";
+  dot.setAttribute("aria-hidden", "true");
+  document.body.append(ring, dot);
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  window.addEventListener("mousemove", (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+    root.classList.add("cursor-visible");
+  }, { passive: true });
+  document.addEventListener("mouseleave", () => root.classList.remove("cursor-visible"));
+  const interactive = "a, button, summary, input, textarea, select, label, .card, .sector-card, .work-card, .blog-card, .offer-card, .pack-card";
+  document.addEventListener("mouseover", (e) => {
+    ring.classList.toggle("is-hover", !!e.target.closest(interactive));
+  });
+  window.addEventListener("mousedown", () => ring.classList.add("is-press"));
+  window.addEventListener("mouseup", () => ring.classList.remove("is-press"));
+  const follow = () => {
+    rx += (mx - rx) * 0.16;
+    ry += (my - ry) * 0.16;
+    ring.style.transform = `translate(${rx.toFixed(1)}px, ${ry.toFixed(1)}px)`;
+    requestAnimationFrame(follow);
+  };
+  requestAnimationFrame(follow);
 });

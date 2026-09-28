@@ -70,3 +70,48 @@
     }
   });
 })();
+
+// Budget finder tabs: work with or without motion preferences.
+document.addEventListener("DOMContentLoaded", () => {
+  const finder = document.querySelector(".budget-finder");
+  if (!finder) return;
+  finder.classList.add("js-on");
+  const tabs = Array.from(finder.querySelectorAll(".budget-tab"));
+  const panels = Array.from(finder.querySelectorAll(".budget-panel"));
+  const fill = finder.querySelector(".ladder-fill");
+  const ticks = Array.from(finder.querySelectorAll(".ladder-tick"));
+
+  const select = (i, focus) => {
+    tabs.forEach((t, n) => {
+      t.classList.toggle("is-active", n === i);
+      t.setAttribute("aria-selected", n === i ? "true" : "false");
+      t.tabIndex = n === i ? 0 : -1;
+    });
+    panels.forEach((p, n) => {
+      const on = n === i;
+      if (on && !p.classList.contains("is-active")) {
+        p.classList.add("is-active", "is-entering");
+        requestAnimationFrame(() => requestAnimationFrame(() => p.classList.remove("is-entering")));
+      } else if (!on) {
+        p.classList.remove("is-active");
+      }
+    });
+    const lo = parseFloat(tabs[i].dataset.lo);
+    const hi = parseFloat(tabs[i].dataset.hi);
+    if (fill) { fill.style.left = lo + "%"; fill.style.width = hi - lo + "%"; }
+    ticks.forEach((t) => {
+      const x = parseFloat(t.style.left);
+      t.classList.toggle("is-in", x >= lo - 0.5 && x <= hi + 0.5);
+    });
+    if (focus) tabs[i].focus();
+  };
+
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(i));
+    t.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); select((i + 1) % tabs.length, true); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); select((i - 1 + tabs.length) % tabs.length, true); }
+    });
+  });
+  select(0);
+});
